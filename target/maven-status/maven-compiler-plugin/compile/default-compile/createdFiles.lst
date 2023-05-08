@@ -1,0 +1,7 @@
+cc\chocochip\seele\managers\TalentsManager.class
+cc\chocochip\seele\manager\Manager.class
+cc\chocochip\seele\commands\TalentsCommand.class
+cc\chocochip\seele\listeners\PlayerListener.class
+cc\chocochip\seele\menu\TalentsMenu.class
+cc\chocochip\seele\manager\ManagerHandler.class
+cc\chocochip\seele\Seele.class

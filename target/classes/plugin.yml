@@ -1,0 +1,7 @@
+name: Seele
+version: 1.0-SNAPSHOT
+api-version: 1.19
+main: cc.chocochip.seele.Seele
+description: "The Butterfly That Triggered the Storm"
+commands:
+  talents:

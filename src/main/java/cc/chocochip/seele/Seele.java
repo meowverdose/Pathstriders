@@ -13,16 +13,12 @@ public class Seele extends JavaPlugin {
 
     private static Seele instance;
     private static ManagerHandler handler;
-    private File dataFolder;
-    private Gson gson;
 
     @Override
     public void onEnable() {
         instance = this;
 
         init();
-
-        handler = new ManagerHandler();
     }
 
     @Override
@@ -32,18 +28,17 @@ public class Seele extends JavaPlugin {
         instance = null;
     }
 
-    public void init() {
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
-        this.dataFolder = new File(getDataFolder(), "playerdata");
-
-        if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
-        }
+    private void init() {
+        handler = new ManagerHandler();
 
         registerListeners();
         registerCommands();
 
         // TODO
+    }
+
+    private void save() {
+        getHandler().getPlayerDataManager().save();
     }
 
     public void registerListeners() {

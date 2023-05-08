@@ -6,14 +6,12 @@ import cc.chocochip.seele.manager.Manager;
 import cc.chocochip.seele.manager.ManagerHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 public class PlayerDataManager extends Manager {
 
@@ -22,39 +20,60 @@ public class PlayerDataManager extends Manager {
     public PlayerDataManager(ManagerHandler handler) {
         super(handler);
         this.playerDataMap = new HashMap<UUID, PlayerData>();
+        load();
     }
 
     public void load() {
+        File folder = new File(Seele.getInstance().getDataFolder(), "playerdata");
 
-    }
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
 
-    public void save() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        for (UUID uniqueIds : playerDataMap.keySet()) {
-            String json = gson.toJson(get(uniqueIds));
-
-            try (FileWriter writer = new FileWriter(getPlayerDataFile(uniqueIds))){
-                writer.write(json);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+            loadPlayerData(offlinePlayer.getUniqueId());
         }
     }
 
-    public void add(Player player) {
-        this.playerDataMap.put(player.getUniqueId(), new PlayerData(player.getUniqueId()));
+    public void loadPlayerData(UUID uniqueId) {
+        File dataFile = new File(Seele.getInstance().getDataFolder() + "/playerdata/" + uniqueId.toString() + ".json");
+
+        if (!dataFile.exists()) {
+            playerDataMap.put(uniqueId, new PlayerData(uniqueId));
+            return;
+        }
+
+        try {
+            FileReader reader = new FileReader(dataFile);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            PlayerData playerData = gson.fromJson(reader, PlayerData.class);
+            playerDataMap.put(uniqueId, playerData);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public PlayerData get(Player player) {
-        return playerDataMap.get(player.getUniqueId());
+    public void save() {
+        for (UUID uniqueId : playerDataMap.keySet()) {
+            savePlayerData(uniqueId);
+        }
+    }
+
+    public void savePlayerData(UUID uniqueId) {
+        File dataFile = new File(Seele.getInstance().getDataFolder() + "/playerdata/" + uniqueId.toString() + ".json");
+
+        try {
+            FileWriter writer = new FileWriter(dataFile);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(playerDataMap.get(uniqueId), writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public PlayerData get(UUID uniqueId) {
         return playerDataMap.get(uniqueId);
-    }
-
-    public File getPlayerDataFile(UUID uniqueId) {
-        return new File(Seele.getInstance().getDataFolder(), uniqueId.toString() + ".json");
     }
 }

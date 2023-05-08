@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class PlayerData {
 
-    private UUID uniqueId;
+    private final UUID uniqueId;
 
     public PlayerData(UUID uniqueId) {
         this.uniqueId = uniqueId;

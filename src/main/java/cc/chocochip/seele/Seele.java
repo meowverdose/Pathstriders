@@ -3,6 +3,8 @@ package cc.chocochip.seele;
 import cc.chocochip.seele.commands.TalentsCommand;
 import cc.chocochip.seele.listeners.PlayerListener;
 import cc.chocochip.seele.manager.ManagerHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -11,7 +13,8 @@ public class Seele extends JavaPlugin {
 
     private static Seele instance;
     private static ManagerHandler handler;
-    private File dataFile;
+    private File dataFolder;
+    private Gson gson;
 
     @Override
     public void onEnable() {
@@ -30,10 +33,11 @@ public class Seele extends JavaPlugin {
     }
 
     public void init() {
-        dataFile = new File(getDataFolder(), "data.json");
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.dataFolder = new File(getDataFolder(), "playerdata");
 
-        if (!dataFile.exists()) {
-            saveResource(dataFile.getName(), false);
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
         }
 
         registerListeners();
@@ -56,9 +60,5 @@ public class Seele extends JavaPlugin {
 
     public static ManagerHandler getHandler() {
         return handler;
-    }
-
-    public File getDataFile() {
-        return this.dataFile;
     }
 }

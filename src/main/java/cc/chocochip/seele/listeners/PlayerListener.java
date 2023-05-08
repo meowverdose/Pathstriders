@@ -22,10 +22,6 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = (Player) event.getPlayer();
-
-        if (!player.hasPlayedBefore()) {
-            this.plugin.getHandler().getTalentsManager().put(player.getUniqueId(), new TalentsMenu());
-        }
     }
 
     @EventHandler

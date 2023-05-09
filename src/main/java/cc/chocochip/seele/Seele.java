@@ -1,18 +1,15 @@
 package cc.chocochip.seele;
 
-import cc.chocochip.seele.commands.TalentsCommand;
+import cc.chocochip.seele.commands.ItemsCommand;
+import cc.chocochip.seele.commands.LookupCommand;
 import cc.chocochip.seele.listeners.PlayerListener;
 import cc.chocochip.seele.manager.ManagerHandler;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public class Seele extends JavaPlugin {
 
     private static Seele instance;
-    private static ManagerHandler handler;
+    private ManagerHandler handler;
 
     @Override
     public void onEnable() {
@@ -23,13 +20,13 @@ public class Seele extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        handler.getTalentsManager().save();
+        getHandler().getPlayerDataManager().save();
 
         instance = null;
     }
 
     private void init() {
-        handler = new ManagerHandler();
+        this.handler = new ManagerHandler();
 
         registerListeners();
         registerCommands();
@@ -46,14 +43,15 @@ public class Seele extends JavaPlugin {
     }
 
     public void registerCommands() {
-        getCommand("talents").setExecutor(new TalentsCommand(this));
+        getCommand("lookup").setExecutor(new LookupCommand(this));
+        getCommand("items").setExecutor(new ItemsCommand(this));
     }
 
     public static Seele getInstance() {
         return instance;
     }
 
-    public static ManagerHandler getHandler() {
-        return handler;
+    public ManagerHandler getHandler() {
+        return this.handler;
     }
 }

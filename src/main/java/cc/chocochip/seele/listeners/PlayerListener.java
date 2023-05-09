@@ -1,7 +1,6 @@
 package cc.chocochip.seele.listeners;
 
 import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.menu.TalentsMenu;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +21,10 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = (Player) event.getPlayer();
+
+        if (!player.hasPlayedBefore()) {
+            this.plugin.getHandler().getPlayerDataManager().loadPlayerData(player.getUniqueId());
+        }
     }
 
     @EventHandler

@@ -76,4 +76,8 @@ public class PlayerDataManager extends Manager {
     public PlayerData get(UUID uniqueId) {
         return playerDataMap.get(uniqueId);
     }
+
+    public boolean contains(UUID uniqueId) {
+        return get(uniqueId) != null;
+    }
 }

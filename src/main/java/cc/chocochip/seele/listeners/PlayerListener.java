@@ -25,6 +25,7 @@ public class PlayerListener implements Listener {
         if (!player.hasPlayedBefore()) {
             this.plugin.getHandler().getPlayerDataManager().loadPlayerData(player.getUniqueId());
         }
+        // Playe joined the server
     }
 
     @EventHandler

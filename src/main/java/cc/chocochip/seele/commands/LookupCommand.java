@@ -11,6 +11,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public class LookupCommand implements CommandExecutor {
 
     private final Seele plugin;
@@ -41,6 +43,7 @@ public class LookupCommand implements CommandExecutor {
                 ChatColor.GOLD + " " + ChatColor.BOLD + target.getName(),
                 "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
+                ChatColor.YELLOW + "  Abilities: " + playerData.getTalents().getItemMeta().getDisplayName(),
                 ""
         );
         return true;

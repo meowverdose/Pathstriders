@@ -1,6 +1,7 @@
 package cc.chocochip.seele.listeners;
 
 import cc.chocochip.seele.Seele;
+import cc.chocochip.seele.data.PlayerData;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,7 @@ public class PlayerListener implements Listener {
         if (!player.hasPlayedBefore()) {
             this.plugin.getHandler().getPlayerDataManager().loadPlayerData(player.getUniqueId());
         }
-        // Playe joined the server
+        // Player joined the server
     }
 
     @EventHandler
@@ -47,6 +48,7 @@ public class PlayerListener implements Listener {
         LivingEntity living = (LivingEntity) event.getEntity();         // Victim (LivingEntity)
 
         // TODO: Apply debuffs, etc.
+        PlayerData damagerData = this.plugin.getHandler().getPlayerDataManager().get(damager.getUniqueId());
 
         if (living instanceof Player) {                                 // sendMessage()
             Player victim = (Player) living;                            // Victim (Player)

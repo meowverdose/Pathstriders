@@ -1,6 +1,9 @@
 package cc.chocochip.seele.managers;
 
 import cc.chocochip.seele.Seele;
+import cc.chocochip.seele.ability.Ability;
+import cc.chocochip.seele.ability.ItemMetaAdapter;
+import cc.chocochip.seele.ability.ItemStackAdapter;
 import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.manager.Manager;
 import cc.chocochip.seele.manager.ManagerHandler;
@@ -8,7 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.*;
 import java.util.*;
@@ -45,7 +49,11 @@ public class PlayerDataManager extends Manager {
 
         try {
             FileReader reader = new FileReader(dataFile);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
+                    .registerTypeAdapter(ItemMeta.class, new ItemMetaAdapter())
+                    .create();
             PlayerData playerData = gson.fromJson(reader, PlayerData.class);
             playerDataMap.put(uniqueId, playerData);
             reader.close();
@@ -65,7 +73,11 @@ public class PlayerDataManager extends Manager {
 
         try {
             FileWriter writer = new FileWriter(dataFile);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
+                    .registerTypeAdapter(ItemMeta.class, new ItemMetaAdapter())
+                    .create();
             gson.toJson(playerDataMap.get(uniqueId), writer);
             writer.close();
         } catch (IOException e) {

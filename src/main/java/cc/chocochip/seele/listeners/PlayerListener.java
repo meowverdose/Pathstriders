@@ -1,7 +1,9 @@
 package cc.chocochip.seele.listeners;
 
 import cc.chocochip.seele.Seele;
+import cc.chocochip.seele.ability.Items;
 import cc.chocochip.seele.data.PlayerData;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
@@ -26,6 +29,7 @@ public class PlayerListener implements Listener {
         if (!player.hasPlayedBefore()) {
             this.plugin.getHandler().getPlayerDataManager().loadPlayerData(player.getUniqueId());
         }
+
         // Player joined the server
     }
 

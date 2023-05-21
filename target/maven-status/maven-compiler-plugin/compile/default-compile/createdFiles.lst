@@ -1,7 +1,6 @@
 cc\chocochip\seele\ability\ItemStackAdapter.class
 cc\chocochip\seele\commands\LookupCommand.class
 cc\chocochip\seele\manager\Manager.class
-cc\chocochip\seele\ability\abilities\InTheNight.class
 cc\chocochip\seele\data\PlayerData.class
 cc\chocochip\seele\ability\Items.class
 cc\chocochip\seele\commands\ItemsCommand.class
@@ -10,7 +9,6 @@ cc\chocochip\seele\ability\Ability.class
 cc\chocochip\seele\listeners\PlayerListener.class
 cc\chocochip\seele\managers\PlayerDataManager.class
 cc\chocochip\seele\ability\Ability$AbilityType.class
-cc\chocochip\seele\ability\ItemMetaAdapter.class
 cc\chocochip\seele\manager\ManagerHandler.class
 cc\chocochip\seele\Seele.class
 cc\chocochip\seele\utils\ItemBuilder.class

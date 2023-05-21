@@ -2,6 +2,9 @@ package cc.chocochip.seele.ability;
 
 import cc.chocochip.seele.utils.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 public enum Items {
@@ -17,7 +20,8 @@ public enum Items {
                     " &2+18% CRIT RATE",
                     " &2+6% ATK per 0.01 SPD. This effect can stack up to 4 time(s)"
             )
-            .hideEnchants()
+            .addData("Flowers_And_Butterflies")
+            .addFlag(ItemFlag.HIDE_ENCHANTS)
             .toItemStack()
     );
 

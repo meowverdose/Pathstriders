@@ -1,27 +1,87 @@
 package cc.chocochip.seele.ability;
 
+import cc.chocochip.seele.Seele;
 import com.google.gson.*;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
     @Override
-    public JsonElement serialize(ItemStack itemStack, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(ItemStack item, Type type, JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
 
-        jsonObject.addProperty("type", itemStack.getType().name());
-        jsonObject.addProperty("amount", itemStack.getAmount());
-        jsonObject.addProperty("durability", itemStack.getDurability());
-        // You can add more properties as needed
+        // Serialize basic ItemStack properties
+        jsonObject.addProperty("type", item.getType().name());
+        jsonObject.addProperty("amount", item.getAmount());
+        jsonObject.addProperty("durability", item.getDurability());
 
         // Serialize ItemMeta
-        if (itemStack.hasItemMeta()) {
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            jsonObject.add("meta", context.serialize(itemMeta));
+        if (item.hasItemMeta()) {
+            ItemMeta meta = item.getItemMeta();
+            JsonObject metaObject = new JsonObject();
+
+            // Serialize displayname
+            metaObject.addProperty("displayName", meta.getDisplayName());
+
+            // Serialize enchantments
+            if (meta.hasEnchants()) {
+                JsonObject enchantmentsObject = new JsonObject();
+                for (Map.Entry<Enchantment, Integer> entry : meta.getEnchants().entrySet()) {
+                    enchantmentsObject.addProperty(entry.getKey().getName(), entry.getValue());
+                }
+                metaObject.add("enchantments", enchantmentsObject);
+            }
+
+            // Serialize item flags
+            if (meta.getItemFlags().size() != 0) {
+                JsonArray flagsArray = new JsonArray();
+                for (ItemFlag flag : meta.getItemFlags()) {
+                    flagsArray.add(flag.name());
+                }
+                metaObject.add("itemFlags", flagsArray);
+            }
+
+            // Serialize PDC
+            if (meta.getPersistentDataContainer() != null) {
+                JsonArray pdcArray = new JsonArray();
+                for (NamespacedKey key : meta.getPersistentDataContainer().getKeys()) {
+                    pdcArray.add(meta.getPersistentDataContainer().get(key, PersistentDataType.STRING));
+                }
+                metaObject.add("pdc", pdcArray);
+            }
+
+            // Serialize attribute mods
+            if (meta.hasAttributeModifiers()) {
+                JsonObject attributesObject = new JsonObject();
+                for (Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()) {
+                    attributesObject.addProperty(entry.getKey().name(), entry.getValue().getAmount());
+                }
+                attributesObject.add("attributeModifiers", attributesObject);
+            }
+
+            // Serialize lore
+            if (meta.hasLore()) {
+                JsonArray loreArray = new JsonArray();
+                for (String loreLine : meta.getLore()) {
+                    loreArray.add(loreLine);
+                }
+                metaObject.add("lore", loreArray);
+            }
+
+            jsonObject.add("meta", metaObject);
         }
 
         return jsonObject;
@@ -31,19 +91,80 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
     public ItemStack deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        String typeName = jsonObject.get("type").getAsString();
-        int amount = jsonObject.get("amount").getAsInt();
-        short durability = jsonObject.get("durability").getAsShort();
-        // You can retrieve more properties as needed
+        // Deserialize basic ItemStack properties
+        ItemStack item = new ItemStack(Material.valueOf(jsonObject.get("type").getAsString()));
+        item.setAmount(jsonObject.get("amount").getAsInt());
+        item.setDurability(jsonObject.get("durability").getAsShort());
 
         // Deserialize ItemMeta
-        ItemStack itemStack = new ItemStack(Material.getMaterial(typeName), amount, durability);
         if (jsonObject.has("meta")) {
-            JsonElement metaElement = jsonObject.get("meta");
-            ItemMeta itemMeta = context.deserialize(metaElement, ItemMetaAdapter.class);
-            itemStack.setItemMeta(itemMeta);
+            JsonObject metaObject = jsonObject.getAsJsonObject("meta");
+            ItemMeta meta = item.getItemMeta();
+
+            // Deserialize displayname
+            if (metaObject.has("displayName")) {
+                meta.setDisplayName(metaObject.get("displayName").getAsString());
+            }
+
+            // Deserialize enchantments
+            if (metaObject.has("enchantments")) {
+                JsonObject enchantmentsObject = metaObject.getAsJsonObject("enchantments");
+                for (Map.Entry<String, JsonElement> entry : enchantmentsObject.entrySet()) {
+                    Enchantment enchantment = Enchantment.getByName(entry.getKey());
+                    if (enchantment != null) {
+                        meta.addEnchant(enchantment, entry.getValue().getAsInt(), true);
+                    }
+                }
+            }
+
+            // Serialize PDC
+            if (metaObject.has("pdc")) {
+                JsonArray pdcArray = metaObject.getAsJsonArray("pdc");
+                for (JsonElement pdcElement : pdcArray) {
+                    meta.getPersistentDataContainer().set(
+                            new NamespacedKey(Seele.getInstance(), "custom_enchants"),
+                            PersistentDataType.STRING,
+                            pdcElement.getAsString()
+                    );
+                }
+            }
+
+            // Deserialize flags
+            if (metaObject.has("itemFlags")) {
+                JsonArray jsonArray = metaObject.getAsJsonArray("itemFlags");
+                for (JsonElement flagElement : jsonArray) {
+                    ItemFlag flag = ItemFlag.valueOf(flagElement.getAsString());
+                    if (flag != null) {
+                        meta.addItemFlags(flag);
+                    }
+                }
+            }
+
+            // Deserialize mods
+            if (metaObject.has("attributeModifiers")) {
+                JsonObject attributesObject = metaObject.getAsJsonObject("attributeModifiers");
+                for (Map.Entry<String, JsonElement> entry : attributesObject.entrySet()) {
+                    Attribute attribute = Attribute.valueOf(entry.getKey());
+                    if (entry != null) {
+                        meta.addAttributeModifier(attribute, new AttributeModifier(null, entry.getValue().getAsDouble(), AttributeModifier.Operation.ADD_NUMBER));
+                    }
+                }
+            }
+
+            // Deserialize lore
+            if (metaObject.has("lore")) {
+                JsonArray loreArray = metaObject.getAsJsonArray("lore");
+
+                List<String> lore = new ArrayList<>();
+                for (JsonElement loreElement : loreArray) {
+                    lore.add(loreElement.getAsString());
+                }
+                meta.setLore(lore);
+            }
+
+            item.setItemMeta(meta);
         }
 
-        return itemStack;
+        return item;
     }
 }

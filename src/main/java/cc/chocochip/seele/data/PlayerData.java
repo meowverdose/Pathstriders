@@ -1,12 +1,8 @@
 package cc.chocochip.seele.data;
 
-import cc.chocochip.seele.ability.Ability;
 import cc.chocochip.seele.ability.Items;
-import cc.chocochip.seele.ability.abilities.InTheNight;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class PlayerData {

@@ -1,8 +1,6 @@
 package cc.chocochip.seele.managers;
 
 import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.ability.Ability;
-import cc.chocochip.seele.ability.ItemMetaAdapter;
 import cc.chocochip.seele.ability.ItemStackAdapter;
 import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.manager.Manager;
@@ -52,7 +50,6 @@ public class PlayerDataManager extends Manager {
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
-                    .registerTypeAdapter(ItemMeta.class, new ItemMetaAdapter())
                     .create();
             PlayerData playerData = gson.fromJson(reader, PlayerData.class);
             playerDataMap.put(uniqueId, playerData);
@@ -76,7 +73,6 @@ public class PlayerDataManager extends Manager {
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
-                    .registerTypeAdapter(ItemMeta.class, new ItemMetaAdapter())
                     .create();
             gson.toJson(playerDataMap.get(uniqueId), writer);
             writer.close();

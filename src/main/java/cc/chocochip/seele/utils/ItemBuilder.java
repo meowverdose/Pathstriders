@@ -1,11 +1,17 @@
 package cc.chocochip.seele.utils;
 
+import cc.chocochip.seele.Seele;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,9 +53,31 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder hideEnchants() {
+    public ItemBuilder addFlag(ItemFlag flag) {
         ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(flag);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder addData(String data) {
+        ItemMeta meta = item.getItemMeta();
+        // Does key allow multiple additions of data or does it replace?
+        meta.getPersistentDataContainer().set(new NamespacedKey(Seele.getInstance(), "custom_enchants"), PersistentDataType.STRING, data);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder addEnchant(Enchantment ench, int lvl) {
+        ItemMeta meta = item.getItemMeta();
+        meta.addEnchant(ench, lvl, true);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder addAttributeModifier(Attribute attribute, AttributeModifier modifier) {
+        ItemMeta meta = item.getItemMeta();
+        meta.addAttributeModifier(attribute, modifier);
         item.setItemMeta(meta);
         return this;
     }

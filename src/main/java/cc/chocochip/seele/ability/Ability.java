@@ -2,19 +2,16 @@ package cc.chocochip.seele.ability;
 
 import cc.chocochip.seele.Seele;
 import cc.chocochip.seele.data.PlayerData;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public abstract class Ability {
 
     private final AbilityType type;
     private final String name;
-    private final long time;
 
-    public Ability(AbilityType type, String name, long time) {
+    public Ability(AbilityType type, String name) {
         this.type = type;
         this.name = name;
-        this.time = time;
     }
 
     /**
@@ -23,8 +20,6 @@ public abstract class Ability {
      */
     public void activate(Player caster) {
         PlayerData playerData = Seele.getInstance().getHandler().getPlayerDataManager().get(caster.getUniqueId());
-
-        playerData.addAbility(this);
     }
 
     public AbilityType getType() {
@@ -33,10 +28,6 @@ public abstract class Ability {
 
     public String getName() {
         return this.name;
-    }
-
-    public long getTime() {
-        return this.time;
     }
 
     public enum AbilityType {

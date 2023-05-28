@@ -122,7 +122,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                 JsonArray pdcArray = metaObject.getAsJsonArray("pdc");
                 for (JsonElement pdcElement : pdcArray) {
                     meta.getPersistentDataContainer().set(
-                            new NamespacedKey(Seele.getInstance(), "custom_enchants"),
+                            new NamespacedKey(Seele.getInstance(), pdcElement.getAsString()),
                             PersistentDataType.STRING,
                             pdcElement.getAsString()
                     );
@@ -146,7 +146,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                 for (Map.Entry<String, JsonElement> entry : attributesObject.entrySet()) {
                     Attribute attribute = Attribute.valueOf(entry.getKey());
                     if (entry != null) {
-                        meta.addAttributeModifier(attribute, new AttributeModifier(null, entry.getValue().getAsDouble(), AttributeModifier.Operation.ADD_NUMBER));
+                        meta.addAttributeModifier(attribute, new AttributeModifier(attribute.name(), entry.getValue().getAsDouble(), AttributeModifier.Operation.ADD_NUMBER));
                     }
                 }
             }
@@ -161,10 +161,8 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                 }
                 meta.setLore(lore);
             }
-
             item.setItemMeta(meta);
         }
-
         return item;
     }
 }

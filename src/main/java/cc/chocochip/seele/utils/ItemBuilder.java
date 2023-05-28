@@ -8,6 +8,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,6 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemBuilder {
 
@@ -62,8 +64,7 @@ public class ItemBuilder {
 
     public ItemBuilder addData(String data) {
         ItemMeta meta = item.getItemMeta();
-        // Does key allow multiple additions of data or does it replace?
-        meta.getPersistentDataContainer().set(new NamespacedKey(Seele.getInstance(), "custom_enchants"), PersistentDataType.STRING, data);
+        meta.getPersistentDataContainer().set(new NamespacedKey(Seele.getInstance(), data), PersistentDataType.STRING, data);
         item.setItemMeta(meta);
         return this;
     }
@@ -77,6 +78,7 @@ public class ItemBuilder {
 
     public ItemBuilder addAttributeModifier(Attribute attribute, AttributeModifier modifier) {
         ItemMeta meta = item.getItemMeta();
+        //meta.getAttributeModifiers(EquipmentSlot.OFF_HAND).put(attribute, modifier);
         meta.addAttributeModifier(attribute, modifier);
         item.setItemMeta(meta);
         return this;

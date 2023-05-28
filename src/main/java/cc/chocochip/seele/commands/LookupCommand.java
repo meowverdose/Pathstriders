@@ -43,7 +43,7 @@ public class LookupCommand implements CommandExecutor {
                 ChatColor.GOLD + " " + ChatColor.BOLD + target.getName(),
                 "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
-                ChatColor.YELLOW + "  Abilities: " + playerData.getTalents().getItemMeta().getDisplayName(),
+                ChatColor.YELLOW + "  Abilities: " + playerData.getTalents()[0].getItemMeta().getDisplayName(),
                 ""
         );
         return true;

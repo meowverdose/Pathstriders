@@ -8,17 +8,17 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
+
     @Override
     public JsonElement serialize(ItemStack item, Type type, JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
@@ -64,12 +64,21 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             }
 
             // Serialize attribute mods
-            if (meta.hasAttributeModifiers()) {
+            if (meta.hasAttributeModifiers()) { // TODO: 6/3/2023 FIX
                 JsonObject attributesObject = new JsonObject();
                 for (Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()) {
-                    attributesObject.addProperty(entry.getKey().name(), entry.getValue().getAmount());
+                    JsonObject modifierObject = new JsonObject();
+                    /*for (Map.Entry<String, Object> modifierEntry : entry.getValue().serialize().entrySet()) {
+                        modifierObject.addProperty(modifierEntry.getKey(), modifierEntry.getValue().toString());
+                    }*/                                                 // For each loop; saves as strings not primitives
+                    modifierObject.addProperty("uuid", entry.getValue().getUniqueId().toString());
+                    modifierObject.addProperty("name", entry.getValue().getName());
+                    modifierObject.addProperty("amount", entry.getValue().getAmount());
+                    modifierObject.addProperty("operation", entry.getValue().getOperation().ordinal());
+                    modifierObject.addProperty("slot", entry.getValue().getSlot().ordinal());
+                    attributesObject.add(entry.getKey().name(), modifierObject);
                 }
-                attributesObject.add("attributeModifiers", attributesObject);
+                metaObject.add("attributeModifiers", attributesObject);
             }
 
             // Serialize lore
@@ -83,7 +92,6 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
 
             jsonObject.add("meta", metaObject);
         }
-
         return jsonObject;
     }
 
@@ -141,12 +149,19 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             }
 
             // Deserialize mods
-            if (metaObject.has("attributeModifiers")) {
+            if (metaObject.has("attributeModifiers")) { // TODO: 6/3/2023 FIX
                 JsonObject attributesObject = metaObject.getAsJsonObject("attributeModifiers");
                 for (Map.Entry<String, JsonElement> entry : attributesObject.entrySet()) {
-                    Attribute attribute = Attribute.valueOf(entry.getKey());
                     if (entry != null) {
-                        meta.addAttributeModifier(attribute, new AttributeModifier(attribute.name(), entry.getValue().getAsDouble(), AttributeModifier.Operation.ADD_NUMBER));
+                        JsonObject modifierObject = entry.getValue().getAsJsonObject();
+                        AttributeModifier modifier = new AttributeModifier(
+                                UUID.fromString(modifierObject.get("uuid").getAsString()),
+                                modifierObject.get("name").getAsString(),
+                                modifierObject.get("amount").getAsDouble(),
+                                AttributeModifier.Operation.values()[modifierObject.get("operation").getAsInt()],
+                                EquipmentSlot.values()[modifierObject.get("slot").getAsInt()]
+                        );
+                        meta.addAttributeModifier(Attribute.valueOf(entry.getKey()), modifier);
                     }
                 }
             }

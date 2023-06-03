@@ -4,6 +4,7 @@ import cc.chocochip.seele.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -29,16 +30,20 @@ public enum Items {
                     " &2+18% ATK SPD",
                     " &2+6% ATK per 0.01 SPD. This effect can stack up to 4 time(s)"
             )
+            .addEnchant(Enchantment.DURABILITY, 1)
             .addData("Flowers_And_Butterflies")
             .addFlag(ItemFlag.HIDE_ENCHANTS)
             .addFlag(ItemFlag.HIDE_ATTRIBUTES)
-            .addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(
-                    UUID.randomUUID(),
-                    "ATK_SPD",
-                    0.18,
-                    AttributeModifier.Operation.MULTIPLY_SCALAR_1,
-                    EquipmentSlot.OFF_HAND
-            ))
+            .addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_SPEED,
+                    new AttributeModifier(
+                        UUID.randomUUID(),
+                        "ATK_SPD",
+                        0.18,
+                        AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                        EquipmentSlot.OFF_HAND
+                    )
+            )
             .toItemStack()
     );
 

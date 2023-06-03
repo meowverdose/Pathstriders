@@ -2,6 +2,7 @@ package cc.chocochip.seele.commands;
 
 import cc.chocochip.seele.Seele;
 import cc.chocochip.seele.ability.Items;
+import cc.chocochip.seele.data.PlayerData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,6 +25,7 @@ public class ItemsCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+        PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId());
 
         if (args.length != 1) {
             player.sendMessage(ChatColor.RED + Items.values().toString());
@@ -34,7 +36,7 @@ public class ItemsCommand implements CommandExecutor {
 
         player.getInventory().addItem(item.getItem());
 
-        this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId()).getTalents()[0] = item.getItem();
+        playerData.getTalents()[0] = item.getItem(); // TODO: 6/3/2023 REMOVE LATER; DBUG
         return true;
     }
 }

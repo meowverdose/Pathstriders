@@ -4,6 +4,7 @@ import cc.chocochip.seele.ability.Items;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class PlayerData {
@@ -24,5 +25,8 @@ public class PlayerData {
         return talents;
     }
 
-
+    @Override
+    public String toString() {
+        return Arrays.toString(talents);
+    }
 }

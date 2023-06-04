@@ -2,6 +2,7 @@ package cc.chocochip.seele;
 
 import cc.chocochip.seele.commands.ItemsCommand;
 import cc.chocochip.seele.commands.LookupCommand;
+import cc.chocochip.seele.commands.TalentsCommand;
 import cc.chocochip.seele.listeners.PlayerListener;
 import cc.chocochip.seele.manager.ManagerHandler;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,6 +46,7 @@ public class Seele extends JavaPlugin {
     public void registerCommands() {
         getCommand("lookup").setExecutor(new LookupCommand(this));
         getCommand("items").setExecutor(new ItemsCommand(this));
+        getCommand("talents").setExecutor(new TalentsCommand(this));
     }
 
     public static Seele getInstance() {

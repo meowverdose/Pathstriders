@@ -1,4 +1,4 @@
-package cc.chocochip.seele.ability;
+package cc.chocochip.seele.talents;
 
 import cc.chocochip.seele.utils.ItemBuilder;
 import org.bukkit.Material;

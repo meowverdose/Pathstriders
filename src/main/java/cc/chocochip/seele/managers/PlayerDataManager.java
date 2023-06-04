@@ -1,7 +1,7 @@
 package cc.chocochip.seele.managers;
 
 import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.ability.ItemStackAdapter;
+import cc.chocochip.seele.talents.ItemStackAdapter;
 import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.manager.Manager;
 import cc.chocochip.seele.manager.ManagerHandler;
@@ -10,7 +10,6 @@ import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.*;
 import java.util.*;

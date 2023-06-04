@@ -1,20 +1,15 @@
 package cc.chocochip.seele.listeners;
 
 import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.ability.Items;
 import cc.chocochip.seele.data.PlayerData;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -33,8 +28,6 @@ public class PlayerListener implements Listener {
         if (!player.hasPlayedBefore()) {
             this.plugin.getHandler().getPlayerDataManager().loadPlayerData(player.getUniqueId());
         }
-
-        // Player joined the server
     }
 
     @EventHandler
@@ -63,7 +56,7 @@ public class PlayerListener implements Listener {
         }
 
         ItemStack damagerItem = damager.getInventory().getItemInOffHand();
-        if (damagerItem.hasItemMeta()) {
+        if (damagerItem.hasItemMeta()) {                                // Light Cone: In The Night
             if (damagerItem.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
                 double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
                 double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
@@ -75,7 +68,6 @@ public class PlayerListener implements Listener {
                     dmgMultiplier = 1.24;
                 }
                 event.setDamage(event.getDamage() * dmgMultiplier);
-
             }
         }
     }

@@ -1,7 +1,5 @@
 package cc.chocochip.seele.data;
 
-import cc.chocochip.seele.ability.Items;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -14,7 +12,7 @@ public class PlayerData {
 
     public PlayerData(UUID uniqueId) {
         this.uniqueId = uniqueId;
-        this.talents = new ItemStack[3];
+        this.talents = new ItemStack[4];
     }
 
     public UUID getUniqueId() {

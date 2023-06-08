@@ -29,6 +29,11 @@ public class LookupCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        if (!player.isOp()) {
+            player.sendMessage(ChatColor.RED + " **ACCESS DENIED** Invalid permissions");
+            return false;
+        }
+
         if (args.length != 1) {
             player.sendMessage(ChatColor.RED + " **SYNTAX** /lookup <player>");
             return false;

@@ -1,6 +1,7 @@
 package cc.chocochip.seele.commands;
 
 import cc.chocochip.seele.Seele;
+import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.talents.Items;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -25,15 +26,22 @@ public class ItemsCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        if (!player.isOp()) {
+            player.sendMessage(ChatColor.RED + " **ACCESS DENIED** Invalid permissions");
+            return false;
+        }
+
         if (args.length != 1) {
             player.sendMessage(ChatColor.RED + Items.values().toString());
             return false;
         }
 
-        Items item = Items.valueOf(args[0].toUpperCase());
+        Items item = Items.valueOf(args[0].toUpperCase()); // TODO: 6/7/2023 Add proper checks later 
+        PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId());
+
+        playerData.setTalent(0, item.getItem());
 
         player.getInventory().addItem(item.getItem());
-        this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId()).setTalent(0, item.getItem());
         return true;
     }
 }

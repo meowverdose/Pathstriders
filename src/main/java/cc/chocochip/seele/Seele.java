@@ -3,6 +3,7 @@ package cc.chocochip.seele;
 import cc.chocochip.seele.commands.ItemsCommand;
 import cc.chocochip.seele.commands.LookupCommand;
 import cc.chocochip.seele.commands.TalentsCommand;
+import cc.chocochip.seele.listeners.MenuListener;
 import cc.chocochip.seele.listeners.PlayerListener;
 import cc.chocochip.seele.manager.ManagerHandler;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +42,7 @@ public class Seele extends JavaPlugin {
 
     public void registerListeners() {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new MenuListener(this), this);
     }
 
     public void registerCommands() {

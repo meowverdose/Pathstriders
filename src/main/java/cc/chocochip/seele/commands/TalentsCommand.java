@@ -2,7 +2,7 @@ package cc.chocochip.seele.commands;
 
 import cc.chocochip.seele.Seele;
 import cc.chocochip.seele.data.PlayerData;
-import cc.chocochip.seele.utils.TalentsUtil;
+import cc.chocochip.seele.talents.TalentsMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,8 @@ public class TalentsCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        TalentsUtil.open(player);
+        PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId());
+        player.openInventory(new TalentsMenu(playerData).getInventory());
         return true;
     }
 }

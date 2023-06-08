@@ -23,6 +23,10 @@ public class PlayerData {
         return talents;
     }
 
+    public void setTalent(int index, ItemStack item) {
+        this.talents[index] = item;
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(talents);

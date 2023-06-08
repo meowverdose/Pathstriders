@@ -13,10 +13,6 @@ import java.util.UUID;
 
 public enum Items {
 
-    /*
-    talent, light cone, 2-piece relic set
-     */
-
     IN_THE_NIGHT(new ItemBuilder(Material.PAPER)
             .setName("&9In The Night")
             .setLore(

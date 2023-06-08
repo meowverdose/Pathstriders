@@ -33,6 +33,7 @@ public class ItemsCommand implements CommandExecutor {
         Items item = Items.valueOf(args[0].toUpperCase());
 
         player.getInventory().addItem(item.getItem());
+        this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId()).setTalent(0, item.getItem());
         return true;
     }
 }

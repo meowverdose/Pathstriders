@@ -1,18 +1,23 @@
 package cc.chocochip.seele.managers;
 
 import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.talents.ItemStackAdapter;
 import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.manager.Manager;
 import cc.chocochip.seele.manager.ManagerHandler;
+import cc.chocochip.seele.talents.ItemStackAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PlayerDataManager extends Manager {
 

@@ -3,7 +3,6 @@ package cc.chocochip.seele.commands;
 import cc.chocochip.seele.Seele;
 import cc.chocochip.seele.data.PlayerData;
 import cc.chocochip.seele.utils.PlayerUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -43,7 +42,7 @@ public class LookupCommand implements CommandExecutor {
                 ChatColor.GOLD + " " + ChatColor.BOLD + target.getName(),
                 "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
-                ChatColor.YELLOW + "  Abilities: " + playerData.getTalents()[0].getItemMeta().getDisplayName(),
+                ChatColor.YELLOW + "  Abilities: " + Arrays.toString(playerData.getTalents()),
                 ""
         );
         return true;

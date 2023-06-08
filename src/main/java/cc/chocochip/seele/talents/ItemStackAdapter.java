@@ -2,7 +2,6 @@ package cc.chocochip.seele.talents;
 
 import cc.chocochip.seele.Seele;
 import com.google.gson.*;
-
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -15,7 +14,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
 
@@ -64,7 +66,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             }
 
             // Serialize attribute mods
-            if (meta.hasAttributeModifiers()) { // TODO: 6/3/2023 FIX
+            if (meta.hasAttributeModifiers()) {
                 JsonObject attributesObject = new JsonObject();
                 for (Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()) {
                     JsonObject modifierObject = new JsonObject();
@@ -149,7 +151,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             }
 
             // Deserialize mods
-            if (metaObject.has("attributeModifiers")) { // TODO: 6/3/2023 FIX
+            if (metaObject.has("attributeModifiers")) {
                 JsonObject attributesObject = metaObject.getAsJsonObject("attributeModifiers");
                 for (Map.Entry<String, JsonElement> entry : attributesObject.entrySet()) {
                     if (entry != null) {

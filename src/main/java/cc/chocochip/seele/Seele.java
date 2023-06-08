@@ -3,6 +3,7 @@ package cc.chocochip.seele;
 import cc.chocochip.seele.commands.ItemsCommand;
 import cc.chocochip.seele.commands.LookupCommand;
 import cc.chocochip.seele.commands.TalentsCommand;
+import cc.chocochip.seele.commands.WhatisCommand;
 import cc.chocochip.seele.listeners.MenuListener;
 import cc.chocochip.seele.listeners.PlayerListener;
 import cc.chocochip.seele.manager.ManagerHandler;
@@ -22,7 +23,7 @@ public class Seele extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getHandler().getPlayerDataManager().save();
+        save();
 
         instance = null;
     }
@@ -32,8 +33,6 @@ public class Seele extends JavaPlugin {
 
         registerListeners();
         registerCommands();
-
-        // TODO
     }
 
     private void save() {
@@ -49,6 +48,7 @@ public class Seele extends JavaPlugin {
         getCommand("lookup").setExecutor(new LookupCommand(this));
         getCommand("items").setExecutor(new ItemsCommand(this));
         getCommand("talents").setExecutor(new TalentsCommand(this));
+        getCommand("whatis").setExecutor(new WhatisCommand(this));
     }
 
     public static Seele getInstance() {

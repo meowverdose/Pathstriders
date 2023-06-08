@@ -55,6 +55,7 @@ public class PlayerDataManager extends Manager {
                     .setPrettyPrinting()
                     .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
                     .create();
+
             PlayerData playerData = gson.fromJson(reader, PlayerData.class);
             playerDataMap.put(uniqueId, playerData);
             reader.close();
@@ -78,6 +79,7 @@ public class PlayerDataManager extends Manager {
                     .setPrettyPrinting()
                     .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
                     .create();
+
             gson.toJson(playerDataMap.get(uniqueId), writer);
             writer.close();
         } catch (IOException e) {

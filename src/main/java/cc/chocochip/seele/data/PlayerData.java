@@ -8,7 +8,7 @@ import java.util.UUID;
 public class PlayerData {
 
     private final UUID uniqueId;
-    private ItemStack[] talents;
+    private final ItemStack[] talents;
 
     public PlayerData(UUID uniqueId) {
         this.uniqueId = uniqueId;
@@ -24,11 +24,11 @@ public class PlayerData {
     }
 
     public void setTalent(int index, ItemStack item) {
-        this.talents[index] = item;
+        this.talents[index] = item.clone();
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(talents);
+        return uniqueId.toString();
     }
 }

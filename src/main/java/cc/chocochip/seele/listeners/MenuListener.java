@@ -17,21 +17,20 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null) return;
-        if (event.getInventory().getHolder() == null) return;
-        if (!(event.getInventory().getHolder() instanceof Menu)) return;
+        if (event.getClickedInventory() == null) return;                        // Check click out of screen
+        if (event.getInventory().getHolder() == null) return;                   // Will never happen
+        if (!(event.getInventory().getHolder() instanceof Menu)) return;        // Check if inventory holder is a Menu
 
         if (event.getClickedInventory() == event.getInventory()) {              // Check if clicked inventory is Talents menu
             Menu menu = (Menu) event.getInventory().getHolder();
             menu.onInventoryClick(event);
         }
-        //event.setCancelled(true);
     }
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if (event.getInventory().getHolder() == null) return;
-        if (!(event.getInventory().getHolder() instanceof Menu)) return;
+        if (event.getInventory().getHolder() == null) return;                   // Will never happen
+        if (!(event.getInventory().getHolder() instanceof Menu)) return;        // Check if inventory holder is a Menu
 
         Menu menu = (Menu) event.getInventory().getHolder();
         menu.onInventoryClose(event);

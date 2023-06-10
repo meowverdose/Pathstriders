@@ -47,7 +47,10 @@ public class LookupCommand implements CommandExecutor {
                 ChatColor.GOLD + " " + ChatColor.BOLD + target.getName(),
                 "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
-                ChatColor.YELLOW + "  Abilities: " + Arrays.toString(playerData.getTalents()),
+                ChatColor.YELLOW + "  Talents: ",
+                ChatColor.YELLOW + "   Light Cone: " + (playerData.hasLightCone() ? ChatColor.GRAY + "Empty" : playerData.getLightCone().getItemMeta().getDisplayName()),
+                ChatColor.YELLOW + "   Artifact: " + (playerData.hasArtifact() ? ChatColor.GRAY + "Empty" : playerData.getArtifact().getItemMeta().getDisplayName()),
+                ChatColor.YELLOW + "   Relic: " + (playerData.hasRelic() ? ChatColor.GRAY + "Empty" : playerData.getRelic().getItemMeta().getDisplayName()),
                 ""
         );
         return true;

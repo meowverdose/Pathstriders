@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
@@ -36,9 +35,8 @@ public enum Items {
                         UUID.randomUUID(),
                         "ATK_SPD",
                         0.18,
-                        AttributeModifier.Operation.MULTIPLY_SCALAR_1,
-                        EquipmentSlot.OFF_HAND
-                    ) // TODO: 6/10/2023 fix off hand for talent slot
+                        AttributeModifier.Operation.MULTIPLY_SCALAR_1
+                    )
             )
             .toItemStack()
     );

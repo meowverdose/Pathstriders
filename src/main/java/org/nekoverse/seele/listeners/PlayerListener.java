@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) return;            // Damager must be Player
-        if (!(event.getEntity() instanceof LivingEntity)) return;       // Victim must be living
+        if (!(event.getEntity() instanceof LivingEntity)) return;       // Victim must be LivingEntity
 
         Player damager = (Player) event.getDamager();                   // Damager (Player)
         LivingEntity living = (LivingEntity) event.getEntity();         // Victim (LivingEntity)
@@ -57,8 +57,8 @@ public class PlayerListener implements Listener {
             Player victim = (Player) living;                            // Victim (Player)
         }
 
-        if (damagerData.getTalents()[0] != null) {                      // Light Cone
-            ItemStack lightCone = damagerData.getTalents()[0];
+        if (damagerData.hasLightCone()) {                               // Light Cone
+            ItemStack lightCone = damagerData.getLightCone();
 
             if (lightCone.hasItemMeta()) {
                 if (lightCone.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {

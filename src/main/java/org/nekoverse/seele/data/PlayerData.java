@@ -20,18 +20,44 @@ public class PlayerData {
         return this.uniqueId;
     }
 
-    public ItemStack[] getTalents() {
-        return talents;
+    public ItemStack getLightCone() {
+        return this.talents[0];
+    }
+
+    public ItemStack getArtifact() {
+        return this.talents[1];
+    }
+
+    public ItemStack getRelic() {
+        return this.talents[2];
+    }
+
+    public boolean hasLightCone() {
+        return this.talents[0] != null;
+    }
+
+    public boolean hasArtifact() {
+        return this.talents[1] != null;
+    }
+
+    public boolean hasRelic() {
+        return this.talents[2] != null;
+    }
+
+    public ItemStack getTalent(int index) {
+        return this.talents[index];
+    }
+
+    public boolean hasTalent(int index) {
+        return this.talents[index] != null;
     }
 
     public void setTalent(int index, @Nullable ItemStack item) {
         this.talents[index] = (item == null ? null : item.clone());
     }
 
-
-
     @Override
     public String toString() {
-        return uniqueId.toString();
+        return this.uniqueId.toString();
     }
 }

@@ -1,5 +1,6 @@
 package org.nekoverse.seele.listeners;
 
+import org.bukkit.event.inventory.ClickType;
 import org.nekoverse.seele.Seele;
 import org.nekoverse.seele.talents.Menu;
 import org.bukkit.event.EventHandler;
@@ -21,8 +22,16 @@ public class MenuListener implements Listener {
         if (event.getInventory().getHolder() == null) return;                   // Will never happen
         if (!(event.getInventory().getHolder() instanceof Menu)) return;        // Check if inventory holder is a Menu
 
-        if (event.getClickedInventory() == event.getInventory()) {              // Check if clicked inventory is Talents menu
+        if (event.getView().getBottomInventory().equals(event.getClickedInventory())) {
+            if (event.isShiftClick()) {                                         // Cancel no drag event
+                event.setCancelled(true);
+                return;
+            }
+        }
+
+        if (event.getClickedInventory().equals(event.getInventory())) {         // Check if clicked inventory is Talents menu
             Menu menu = (Menu) event.getInventory().getHolder();
+            assert menu != null;
             menu.onInventoryClick(event);
         }
     }

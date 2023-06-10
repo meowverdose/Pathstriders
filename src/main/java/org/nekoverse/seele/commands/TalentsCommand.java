@@ -1,8 +1,8 @@
-package cc.chocochip.seele.commands;
+package org.nekoverse.seele.commands;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.data.PlayerData;
-import cc.chocochip.seele.talents.TalentsMenu;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.talents.TalentsMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,7 +26,7 @@ public class TalentsCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId());
-        player.openInventory(new TalentsMenu(playerData).getInventory());
+        player.openInventory(new TalentsMenu(playerData).create());
         return true;
     }
 }

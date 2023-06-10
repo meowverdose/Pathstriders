@@ -64,12 +64,12 @@ public class PlayerListener implements Listener {
                 if (lightCone.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
                     double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
                     double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
-                    double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.06);
+                    double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.04);
 
                     if (dmgMultiplier <= 0) {
                         dmgMultiplier = 1;
-                    } else if (dmgMultiplier > 1.24) {
-                        dmgMultiplier = 1.24;
+                    } else if (dmgMultiplier > 1.16) {
+                        dmgMultiplier = 1.16;
                     }
                     event.setDamage(event.getDamage() * dmgMultiplier);
                 }

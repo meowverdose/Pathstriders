@@ -1,5 +1,6 @@
 package org.nekoverse.seele.talents;
 
+import org.bukkit.inventory.EquipmentSlot;
 import org.nekoverse.seele.Seele;
 import com.google.gson.*;
 import org.bukkit.Material;
@@ -83,6 +84,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                     modifierObject.addProperty("name", entry.getValue().getName());
                     modifierObject.addProperty("amount", entry.getValue().getAmount());
                     modifierObject.addProperty("operation", entry.getValue().getOperation().ordinal());
+                    modifierObject.addProperty("slot", entry.getValue().getSlot().ordinal());
                     attributesObject.add(entry.getKey().name(), modifierObject);
                 }
                 metaObject.add("attributeModifiers", attributesObject);
@@ -169,7 +171,8 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                                 UUID.fromString(modifierObject.get("uuid").getAsString()),
                                 modifierObject.get("name").getAsString(),
                                 modifierObject.get("amount").getAsDouble(),
-                                AttributeModifier.Operation.values()[modifierObject.get("operation").getAsInt()]
+                                AttributeModifier.Operation.values()[modifierObject.get("operation").getAsInt()],
+                                EquipmentSlot.values()[modifierObject.get("slot").getAsInt()]
                         );
                         meta.addAttributeModifier(Attribute.valueOf(entry.getKey()), modifier);
                     }

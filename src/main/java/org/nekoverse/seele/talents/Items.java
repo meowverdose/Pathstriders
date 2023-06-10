@@ -1,5 +1,6 @@
 package org.nekoverse.seele.talents;
 
+import org.bukkit.inventory.EquipmentSlot;
 import org.nekoverse.seele.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -23,7 +24,7 @@ public enum Items {
                     "",
                     "&7When in Talents:",
                     " &2+18% ATK SPD",
-                    " &2+6% ATK per 0.01 SPD. This effect can stack up to 4 time(s)"
+                    " &2+4% ATK DMG per 0.01 SPD. This effect can stack up to 4 time(s)"
             )
             .addEnchant(Enchantment.DURABILITY, 1)
             .addData("Flowers_And_Butterflies")
@@ -32,10 +33,11 @@ public enum Items {
             .addAttributeModifier(
                     Attribute.GENERIC_ATTACK_SPEED,
                     new AttributeModifier(
-                        UUID.randomUUID(),
-                        "ATK_SPD",
-                        0.18,
-                        AttributeModifier.Operation.MULTIPLY_SCALAR_1
+                            UUID.randomUUID(),
+                            "ATK_SPD",
+                            0.18,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
                     )
             )
             .toItemStack()

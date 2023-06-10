@@ -1,6 +1,6 @@
-package cc.chocochip.seele.commands;
+package org.nekoverse.seele.commands;
 
-import cc.chocochip.seele.Seele;
+import org.nekoverse.seele.Seele;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

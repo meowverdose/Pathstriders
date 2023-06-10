@@ -1,7 +1,5 @@
 package org.nekoverse.seele.listeners;
 
-import org.nekoverse.seele.Seele;
-import org.nekoverse.seele.data.PlayerData;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
@@ -14,6 +12,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
 
 public class PlayerListener implements Listener {
 

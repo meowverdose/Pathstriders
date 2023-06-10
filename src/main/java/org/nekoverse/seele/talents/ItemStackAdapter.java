@@ -1,17 +1,17 @@
 package org.nekoverse.seele.talents;
 
-import org.bukkit.inventory.EquipmentSlot;
-import org.nekoverse.seele.Seele;
 import com.google.gson.*;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.nekoverse.seele.Seele;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package org.nekoverse.seele.data;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class PlayerData {

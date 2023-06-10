@@ -1,6 +1,5 @@
 package org.nekoverse.seele.utils;
 
-import org.nekoverse.seele.Seele;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -11,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.nekoverse.seele.Seele;
 
 import java.util.ArrayList;
 import java.util.List;

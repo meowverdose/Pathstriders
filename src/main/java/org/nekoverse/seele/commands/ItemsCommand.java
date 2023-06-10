@@ -1,16 +1,13 @@
 package org.nekoverse.seele.commands;
 
-import org.bukkit.inventory.ItemStack;
-import org.nekoverse.seele.Seele;
-import org.nekoverse.seele.data.PlayerData;
-import org.nekoverse.seele.talents.Items;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.talents.Items;
 import org.nekoverse.seele.utils.EnumUtil;
-import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.util.Arrays;
 

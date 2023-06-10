@@ -1,15 +1,15 @@
 package org.nekoverse.seele.managers;
 
-import org.nekoverse.seele.Seele;
-import org.nekoverse.seele.data.PlayerData;
-import org.nekoverse.seele.manager.Manager;
-import org.nekoverse.seele.manager.ManagerHandler;
-import org.nekoverse.seele.talents.ItemStackAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.manager.Manager;
+import org.nekoverse.seele.manager.ManagerHandler;
+import org.nekoverse.seele.talents.ItemStackAdapter;
 
 import java.io.File;
 import java.io.FileReader;

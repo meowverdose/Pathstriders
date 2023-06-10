@@ -1,12 +1,11 @@
 package org.nekoverse.seele.listeners;
 
-import org.bukkit.event.inventory.ClickType;
-import org.nekoverse.seele.Seele;
-import org.nekoverse.seele.talents.Menu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.talents.Menu;
 
 public class MenuListener implements Listener {
 

@@ -1,16 +1,14 @@
 package org.nekoverse.seele.commands;
 
-import org.nekoverse.seele.Seele;
-import org.nekoverse.seele.data.PlayerData;
-import org.nekoverse.seele.utils.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Arrays;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.utils.PlayerUtil;
 
 public class LookupCommand implements CommandExecutor {
 

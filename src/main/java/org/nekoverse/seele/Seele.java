@@ -1,5 +1,6 @@
 package org.nekoverse.seele;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.nekoverse.seele.commands.ItemsCommand;
 import org.nekoverse.seele.commands.LookupCommand;
 import org.nekoverse.seele.commands.TalentsCommand;
@@ -7,7 +8,6 @@ import org.nekoverse.seele.commands.WhatisCommand;
 import org.nekoverse.seele.listeners.MenuListener;
 import org.nekoverse.seele.listeners.PlayerListener;
 import org.nekoverse.seele.manager.ManagerHandler;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Seele extends JavaPlugin {
 

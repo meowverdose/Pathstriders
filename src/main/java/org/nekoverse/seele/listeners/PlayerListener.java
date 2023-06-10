@@ -1,7 +1,7 @@
-package cc.chocochip.seele.listeners;
+package org.nekoverse.seele.listeners;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.data.PlayerData;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
@@ -57,19 +57,22 @@ public class PlayerListener implements Listener {
             Player victim = (Player) living;                            // Victim (Player)
         }
 
-        ItemStack damagerItem = damager.getInventory().getItemInOffHand();
-        if (damagerItem.hasItemMeta()) {                                // Light Cone: In The Night
-            if (damagerItem.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
-                double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
-                double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
-                double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.06);
+        if (damagerData.getTalents()[0] != null) {                      // Light Cone
+            ItemStack lightCone = damagerData.getTalents()[0];
 
-                if (dmgMultiplier <= 0) {
-                    dmgMultiplier = 1;
-                } else if (dmgMultiplier > 1.24) {
-                    dmgMultiplier = 1.24;
+            if (lightCone.hasItemMeta()) {
+                if (lightCone.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
+                    double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
+                    double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
+                    double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.06);
+
+                    if (dmgMultiplier <= 0) {
+                        dmgMultiplier = 1;
+                    } else if (dmgMultiplier > 1.24) {
+                        dmgMultiplier = 1.24;
+                    }
+                    event.setDamage(event.getDamage() * dmgMultiplier);
                 }
-                event.setDamage(event.getDamage() * dmgMultiplier);
             }
         }
     }

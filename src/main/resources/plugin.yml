@@ -1,8 +1,9 @@
 name: Seele
 version: ${project.version}
 api-version: 1.19
-main: cc.chocochip.seele.Seele
-description: "The Butterfly That Triggered the Storm"
+main: org.nekoverse.seele.Seele
+author: nekoverse
+description: "§dThe Butterfly That Triggered the Storm"
 depend:
 commands:
   lookup:

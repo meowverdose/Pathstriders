@@ -1,4 +1,4 @@
-package cc.chocochip.seele.manager;
+package org.nekoverse.seele.manager;
 
 public class Manager {
     public ManagerHandler handler;

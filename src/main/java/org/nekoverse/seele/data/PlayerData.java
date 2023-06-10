@@ -1,7 +1,8 @@
-package cc.chocochip.seele.data;
+package org.nekoverse.seele.data;
 
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class PlayerData {
 
     public PlayerData(UUID uniqueId) {
         this.uniqueId = uniqueId;
-        this.talents = new ItemStack[4];
+        this.talents = new ItemStack[3];
     }
 
     public UUID getUniqueId() {
@@ -23,9 +24,11 @@ public class PlayerData {
         return talents;
     }
 
-    public void setTalent(int index, ItemStack item) {
-        this.talents[index] = item.clone();
+    public void setTalent(int index, @Nullable ItemStack item) {
+        this.talents[index] = (item == null ? null : item.clone());
     }
+
+
 
     @Override
     public String toString() {

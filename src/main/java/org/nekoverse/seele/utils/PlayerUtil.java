@@ -1,4 +1,4 @@
-package cc.chocochip.seele.utils;
+package org.nekoverse.seele.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

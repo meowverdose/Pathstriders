@@ -1,6 +1,6 @@
-package cc.chocochip.seele.talents;
+package org.nekoverse.seele.talents;
 
-import cc.chocochip.seele.Seele;
+import org.nekoverse.seele.Seele;
 import com.google.gson.*;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,6 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Custom type adapter for ItemStack.java
+ * Utilized by Gson for itemstack json serializing and deserializing
+ */
 public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
 
     @Override
@@ -26,7 +30,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
         JsonObject jsonObject = new JsonObject();
 
         // Serialize basic ItemStack properties
-        jsonObject.addProperty("type", item.getType().name());
+        jsonObject.addProperty("type", item.getType().ordinal());
         jsonObject.addProperty("amount", item.getAmount());
         jsonObject.addProperty("durability", item.getDurability());
 
@@ -34,6 +38,8 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
         if (item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
             JsonObject metaObject = new JsonObject();
+
+            assert meta != null;
 
             // Serialize displayname
             metaObject.addProperty("displayName", meta.getDisplayName());
@@ -51,13 +57,13 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             if (meta.getItemFlags().size() != 0) {
                 JsonArray flagsArray = new JsonArray();
                 for (ItemFlag flag : meta.getItemFlags()) {
-                    flagsArray.add(flag.name());
+                    flagsArray.add(flag.ordinal());
                 }
                 metaObject.add("itemFlags", flagsArray);
             }
 
             // Serialize PDC
-            if (meta.getPersistentDataContainer() != null) {
+            if (!meta.getPersistentDataContainer().isEmpty()) {
                 JsonArray pdcArray = new JsonArray();
                 for (NamespacedKey key : meta.getPersistentDataContainer().getKeys()) {
                     pdcArray.add(meta.getPersistentDataContainer().get(key, PersistentDataType.STRING));
@@ -91,7 +97,6 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
                 }
                 metaObject.add("lore", loreArray);
             }
-
             jsonObject.add("meta", metaObject);
         }
         return jsonObject;
@@ -102,17 +107,21 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
         JsonObject jsonObject = json.getAsJsonObject();
 
         // Deserialize basic ItemStack properties
-        ItemStack item = new ItemStack(Material.valueOf(jsonObject.get("type").getAsString()));
+        ItemStack item = new ItemStack(Material.values()[jsonObject.get("type").getAsInt()]);
         item.setAmount(jsonObject.get("amount").getAsInt());
         item.setDurability(jsonObject.get("durability").getAsShort());
+
 
         // Deserialize ItemMeta
         if (jsonObject.has("meta")) {
             JsonObject metaObject = jsonObject.getAsJsonObject("meta");
             ItemMeta meta = item.getItemMeta();
 
+            assert meta != null;
+
             // Deserialize displayname
             if (metaObject.has("displayName")) {
+
                 meta.setDisplayName(metaObject.get("displayName").getAsString());
             }
 
@@ -143,10 +152,8 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             if (metaObject.has("itemFlags")) {
                 JsonArray jsonArray = metaObject.getAsJsonArray("itemFlags");
                 for (JsonElement flagElement : jsonArray) {
-                    ItemFlag flag = ItemFlag.valueOf(flagElement.getAsString());
-                    if (flag != null) {
-                        meta.addItemFlags(flag);
-                    }
+                    ItemFlag flag = ItemFlag.values()[flagElement.getAsInt()];
+                    meta.addItemFlags(flag);
                 }
             }
 

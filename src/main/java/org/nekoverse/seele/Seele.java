@@ -1,12 +1,12 @@
-package cc.chocochip.seele;
+package org.nekoverse.seele;
 
-import cc.chocochip.seele.commands.ItemsCommand;
-import cc.chocochip.seele.commands.LookupCommand;
-import cc.chocochip.seele.commands.TalentsCommand;
-import cc.chocochip.seele.commands.WhatisCommand;
-import cc.chocochip.seele.listeners.MenuListener;
-import cc.chocochip.seele.listeners.PlayerListener;
-import cc.chocochip.seele.manager.ManagerHandler;
+import org.nekoverse.seele.commands.ItemsCommand;
+import org.nekoverse.seele.commands.LookupCommand;
+import org.nekoverse.seele.commands.TalentsCommand;
+import org.nekoverse.seele.commands.WhatisCommand;
+import org.nekoverse.seele.listeners.MenuListener;
+import org.nekoverse.seele.listeners.PlayerListener;
+import org.nekoverse.seele.manager.ManagerHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Seele extends JavaPlugin {

@@ -1,13 +1,18 @@
-package cc.chocochip.seele.commands;
+package org.nekoverse.seele.commands;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.data.PlayerData;
-import cc.chocochip.seele.talents.Items;
+import org.bukkit.inventory.ItemStack;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.talents.Items;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.nekoverse.seele.utils.EnumUtil;
+import org.yaml.snakeyaml.util.EnumUtils;
+
+import java.util.Arrays;
 
 public class ItemsCommand implements CommandExecutor {
 
@@ -32,14 +37,16 @@ public class ItemsCommand implements CommandExecutor {
         }
 
         if (args.length != 1) {
-            player.sendMessage(ChatColor.RED + Items.values().toString());
+            player.sendMessage(ChatColor.YELLOW + " **ITEMS** " + Arrays.toString(Items.values()));
             return false;
         }
 
-        Items item = Items.valueOf(args[0].toUpperCase()); // TODO: 6/7/2023 Add proper checks later 
-        PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(player.getUniqueId());
+        if (EnumUtil.exists(Items.class, args[0]) == null) {
+            player.sendMessage(ChatColor.RED + " **ERROR** No enum constant " + args[0].toUpperCase());
+            return false;
+        }
 
-        playerData.setTalent(0, item.getItem());
+        Items item = Items.valueOf(args[0].toUpperCase());
 
         player.getInventory().addItem(item.getItem());
         return true;

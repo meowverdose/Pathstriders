@@ -1,6 +1,6 @@
-package cc.chocochip.seele.talents;
+package org.nekoverse.seele.talents;
 
-import cc.chocochip.seele.utils.ItemBuilder;
+import org.nekoverse.seele.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -38,7 +38,7 @@ public enum Items {
                         0.18,
                         AttributeModifier.Operation.MULTIPLY_SCALAR_1,
                         EquipmentSlot.OFF_HAND
-                    )
+                    ) // TODO: 6/10/2023 fix off hand for talent slot
             )
             .toItemStack()
     );
@@ -50,6 +50,6 @@ public enum Items {
     }
 
     public ItemStack getItem() {
-        return this.item;
+        return new ItemStack(this.item);
     }
 }

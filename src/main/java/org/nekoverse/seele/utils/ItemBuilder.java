@@ -1,6 +1,6 @@
-package cc.chocochip.seele.utils;
+package org.nekoverse.seele.utils;
 
-import cc.chocochip.seele.Seele;
+import org.nekoverse.seele.Seele;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

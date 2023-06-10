@@ -1,8 +1,8 @@
-package cc.chocochip.seele.commands;
+package org.nekoverse.seele.commands;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.data.PlayerData;
-import cc.chocochip.seele.utils.PlayerUtil;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.utils.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;

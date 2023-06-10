@@ -1,6 +1,6 @@
-package cc.chocochip.seele.manager;
+package org.nekoverse.seele.manager;
 
-import cc.chocochip.seele.managers.PlayerDataManager;
+import org.nekoverse.seele.managers.PlayerDataManager;
 
 public class ManagerHandler {
 

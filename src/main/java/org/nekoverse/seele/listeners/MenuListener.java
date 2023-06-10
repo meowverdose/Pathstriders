@@ -1,7 +1,7 @@
-package cc.chocochip.seele.listeners;
+package org.nekoverse.seele.listeners;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.talents.Menu;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.talents.Menu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

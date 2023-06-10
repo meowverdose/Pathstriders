@@ -1,10 +1,10 @@
-package cc.chocochip.seele.managers;
+package org.nekoverse.seele.managers;
 
-import cc.chocochip.seele.Seele;
-import cc.chocochip.seele.data.PlayerData;
-import cc.chocochip.seele.manager.Manager;
-import cc.chocochip.seele.manager.ManagerHandler;
-import cc.chocochip.seele.talents.ItemStackAdapter;
+import org.nekoverse.seele.Seele;
+import org.nekoverse.seele.data.PlayerData;
+import org.nekoverse.seele.manager.Manager;
+import org.nekoverse.seele.manager.ManagerHandler;
+import org.nekoverse.seele.talents.ItemStackAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;

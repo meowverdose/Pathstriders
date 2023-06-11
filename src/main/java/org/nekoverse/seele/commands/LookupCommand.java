@@ -38,6 +38,12 @@ public class LookupCommand implements CommandExecutor {
         }
 
         OfflinePlayer target = PlayerUtil.getPlayerByName(args[0]);
+
+        if (target == null) {
+            sender.sendMessage(ChatColor.RED + " **ERROR** Invalid player");
+            return false;
+        }
+
         PlayerData playerData = this.plugin.getHandler().getPlayerDataManager().get(target.getUniqueId());
 
         player.sendMessage(

@@ -23,8 +23,8 @@ public enum Items {
                     "&eHonkai: Star Rail &6&lLight Cone &eSeries",
                     "",
                     "&7When in Talents:",
-                    " &2+18% ATK SPD",
-                    " &2+4% ATK DMG per 0.01 SPD. This effect can stack up to 4 time(s)"
+                    " &d+18% ATK SPD",
+                    " &d+4% ATK DMG per 0.01 SPD. This effect can stack up to 4 time(s)"
             )
             .addEnchant(Enchantment.DURABILITY, 1)
             .addData("Flowers_And_Butterflies")

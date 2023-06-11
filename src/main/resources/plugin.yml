@@ -4,7 +4,6 @@ api-version: 1.19
 main: org.nekoverse.seele.Seele
 author: nekoverse
 description: "§dThe Butterfly That Triggered the Storm"
-depend:
 commands:
   lookup:
   items:

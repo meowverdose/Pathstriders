@@ -130,14 +130,6 @@ public class TalentsMenu implements Menu {
                 }
             }
         }
-
-        /*for (int i = 0; i < this.playerData.getTalents().length; ++i) {
-            if (this.playerData.getTalents()[i] == null) return;
-
-            int slot = (i * 3) + 10;                                                        // 10, 13, 16
-            ItemStack talent = this.playerData.getTalents()[i];
-            inventory.setItem(slot, talent);
-        }*/
     }
 
     @Override

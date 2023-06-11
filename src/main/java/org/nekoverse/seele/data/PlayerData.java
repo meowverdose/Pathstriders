@@ -19,28 +19,8 @@ public class PlayerData {
         return this.uniqueId;
     }
 
-    public ItemStack getLightCone() {
-        return this.talents[0];
-    }
-
-    public ItemStack getArtifact() {
-        return this.talents[1];
-    }
-
-    public ItemStack getRelic() {
-        return this.talents[2];
-    }
-
-    public boolean hasLightCone() {
-        return this.talents[0] != null;
-    }
-
-    public boolean hasArtifact() {
-        return this.talents[1] != null;
-    }
-
-    public boolean hasRelic() {
-        return this.talents[2] != null;
+    public ItemStack[] getTalents() {
+        return this.talents.clone();
     }
 
     public ItemStack getTalent(int index) {

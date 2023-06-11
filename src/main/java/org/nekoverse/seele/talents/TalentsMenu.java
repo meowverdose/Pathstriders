@@ -31,22 +31,29 @@ public class TalentsMenu implements Menu {
         switch (event.getSlot()) {
             case 10, 13, 16 -> {
                 if (event.getClickedInventory().equals(event.getView().getTopInventory())) {
+                    Player player = (Player) event.getWhoClicked();
                     ItemStack talent = event.getClickedInventory().getItem(event.getSlot());
                     ItemStack cursor = event.getCursor();
+                    ItemStack[] talents = {
+                            event.getClickedInventory().getItem(10),
+                            event.getClickedInventory().getItem(13),
+                            event.getClickedInventory().getItem(16),
+                    };
 
                     if (talent == null) {                                                   // Talent spot unoccupied
                         if (cursor == null) return;                                         // Removing talent
 
                         if (!isTalentItem(cursor)) {                                        // Only talents
+                            player.sendMessage(ChatColor.RED + " **ERROR** That item is not a talent");
                             event.setCancelled(true);
                             return;
                         }
 
-                        // TODO: 6/10/2023 Add specific slot logic later
-                        /*if (!isAppropriateSlot(event.getSlot(), cursor)) {
+                        if (talentExists(talents, cursor)) {                                         // No duplicate talents
+                            player.sendMessage(ChatColor.RED + " **ERROR** You cannot have duplicate talents equipped");
                             event.setCancelled(true);
                             return;
-                        }*/
+                        }
                     } else {                                                                // Talent slot occupied
                         if (talent.getMaxStackSize() > 1 && talent.isSimilar(cursor)) {     // No stacking talents
                             event.setCancelled(true);
@@ -80,9 +87,9 @@ public class TalentsMenu implements Menu {
                 "",
                 ChatColor.GOLD + " " + ChatColor.BOLD + "Talents",
                 "",
-                ChatColor.YELLOW + "  Light Cone: " + (playerData.hasLightCone() ? playerData.getLightCone().getItemMeta().getDisplayName() : ChatColor.GRAY + "Empty"),
-                ChatColor.YELLOW + "  Artifact: " + (playerData.hasArtifact() ? playerData.getArtifact().getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
-                ChatColor.YELLOW + "  Relic: " + (playerData.hasRelic() ? playerData.getRelic().getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
+                ChatColor.YELLOW + "  Slot 1: " + (playerData.hasTalent(0) ? playerData.getTalent(0).getItemMeta().getDisplayName() : ChatColor.GRAY + "Empty"),
+                ChatColor.YELLOW + "  Slot 2: " + (playerData.hasTalent(1) ? playerData.getTalent(1).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
+                ChatColor.YELLOW + "  Slot 3: " + (playerData.hasTalent(2) ? playerData.getTalent(2).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
                 ""
         );
     }
@@ -93,7 +100,7 @@ public class TalentsMenu implements Menu {
             switch (i) {
                 case 1 -> {
                     inventory.setItem(i, new ItemBuilder(Material.FILLED_MAP, 1)
-                            .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Light Cone")
+                            .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Slot 1")
                             .addEnchant(Enchantment.DURABILITY, 1)
                             .addFlag(ItemFlag.HIDE_ENCHANTS)
                             .toItemStack()
@@ -101,7 +108,7 @@ public class TalentsMenu implements Menu {
                 }
                 case 4 -> {
                     inventory.setItem(i, new ItemBuilder(Material.NETHER_STAR, 1)
-                            .setName(ChatColor.BLUE + "" + ChatColor.BOLD + "Artifact")
+                            .setName(ChatColor.BLUE + "" + ChatColor.BOLD + "Slot 2")
                             .addEnchant(Enchantment.DURABILITY, 1)
                             .addFlag(ItemFlag.HIDE_ENCHANTS)
                             .toItemStack()
@@ -109,7 +116,7 @@ public class TalentsMenu implements Menu {
                 }
                 case 7 -> {
                     inventory.setItem(i, new ItemBuilder(Material.EMERALD, 1)
-                            .setName(ChatColor.GREEN + "" + ChatColor.BOLD + "Relic")
+                            .setName(ChatColor.GREEN + "" + ChatColor.BOLD + "Slot 3")
                             .addEnchant(Enchantment.DURABILITY, 1)
                             .addFlag(ItemFlag.HIDE_ENCHANTS)
                             .toItemStack()
@@ -152,6 +159,17 @@ public class TalentsMenu implements Menu {
         for (Items items : Items.values()) {
             if (items.getItem().getItemMeta().getPersistentDataContainer().equals(item.getItemMeta().getPersistentDataContainer())) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean talentExists(ItemStack[] talents, ItemStack item) {
+        for (ItemStack talent : talents) {
+            if (talent != null) {
+                if (talent.getItemMeta().getPersistentDataContainer().equals(item.getItemMeta().getPersistentDataContainer())) {
+                    return true;
+                }
             }
         }
         return false;

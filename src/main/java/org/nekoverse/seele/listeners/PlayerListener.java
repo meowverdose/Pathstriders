@@ -57,11 +57,12 @@ public class PlayerListener implements Listener {
             Player victim = (Player) living;                            // Victim (Player)
         }
 
-        if (damagerData.hasLightCone()) {                               // Light Cone
-            ItemStack lightCone = damagerData.getLightCone();
+        for (int i = 0; i < 3; ++i) {
+            ItemStack talent = damagerData.getTalent(i);
 
-            if (lightCone.hasItemMeta()) {
-                if (lightCone.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
+
+            if (talent != null && talent.hasItemMeta()) {
+                if (talent.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
                     double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
                     double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
                     double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.04);

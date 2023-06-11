@@ -52,9 +52,9 @@ public class LookupCommand implements CommandExecutor {
                 "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
                 ChatColor.YELLOW + "  Talents: ",
-                ChatColor.YELLOW + "   Light Cone: " + (playerData.hasLightCone() ? ChatColor.GRAY + "Empty" : playerData.getLightCone().getItemMeta().getDisplayName()),
-                ChatColor.YELLOW + "   Artifact: " + (playerData.hasArtifact() ? ChatColor.GRAY + "Empty" : playerData.getArtifact().getItemMeta().getDisplayName()),
-                ChatColor.YELLOW + "   Relic: " + (playerData.hasRelic() ? ChatColor.GRAY + "Empty" : playerData.getRelic().getItemMeta().getDisplayName()),
+                ChatColor.YELLOW + "   Slot 1: " + (playerData.hasTalent(0) ? playerData.getTalent(0).getItemMeta().getDisplayName() : ChatColor.GRAY + "Empty"),
+                ChatColor.YELLOW + "   Slot 2: " + (playerData.hasTalent(1) ? playerData.getTalent(1).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
+                ChatColor.YELLOW + "   Slot 3: " + (playerData.hasTalent(2) ? playerData.getTalent(2).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
                 ""
         );
         return true;

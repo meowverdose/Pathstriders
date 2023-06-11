@@ -18,8 +18,6 @@ public enum Items {
             .setLore(
                     "&7Flowers and Butterflies",
                     "",
-                    "&e✫✫✫✫✫",
-                    "",
                     "&eHonkai: Star Rail &6&lLight Cone &eSeries",
                     "",
                     "&7When in Talents:",
@@ -36,6 +34,107 @@ public enum Items {
                             UUID.randomUUID(),
                             "ATK_SPD",
                             0.18,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .toItemStack()
+    ),
+    MOMENT_OF_VICTORY(new ItemBuilder(Material.PAPER)
+            .setName("&eMoment of Victory")
+            .setLore(
+                    "&7Verdict",
+                    "",
+                    "&eHonkai: Star Rail &6&lLight Cone &eSeries",
+                    "",
+                    "&7When in Talents:",
+                    " &d+24% DMG RES",
+                    " &d-4% SPD"
+            )
+            .addEnchant(Enchantment.DURABILITY, 1)
+            .addData("Verdict")
+            .addFlag(ItemFlag.HIDE_ENCHANTS)
+            .addFlag(ItemFlag.HIDE_ATTRIBUTES)
+            .addAttributeModifier(
+                    Attribute.GENERIC_ARMOR_TOUGHNESS,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "DMG_RES",
+                            0.24,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .addAttributeModifier(
+                    Attribute.GENERIC_MOVEMENT_SPEED,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "SPD",
+                            -0.04,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .toItemStack()
+    ),
+    LOST_PRAYER(new ItemBuilder(Material.ENCHANTED_BOOK)
+            .setName("&bLost Prayer to the Sacred Winds")
+            .setLore(
+                    "&7Boundless Blessing",
+                    "",
+                    "&dGenshin Impact &5&lCatalyst &dSeries",
+                    "",
+                    "&7When in Talents:",
+                    " &d+10% SPD",
+                    " &d+6% ATK DMG"
+            )
+            .addEnchant(Enchantment.DURABILITY, 1)
+            .addData("Boundless_Blessing")
+            .addFlag(ItemFlag.HIDE_ENCHANTS)
+            .addFlag(ItemFlag.HIDE_ATTRIBUTES)
+            .addAttributeModifier(
+                    Attribute.GENERIC_MOVEMENT_SPEED,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "SPD",
+                            0.1,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_DAMAGE,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "ATK_DMG",
+                            0.06,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .toItemStack()
+    ),
+    SKYWARD_ATLAS(new ItemBuilder(Material.ENCHANTED_BOOK)
+            .setName("&bSkyward Atlas")
+            .setLore(
+                    "&7Wandering Clouds",
+                    "",
+                    "&dGenshin Impact &5&lCatalyst &dSeries",
+                    "",
+                    "&7When in Talents:",
+                    " &d+6% ATK DMG",
+                    " &d+12% chance to deal 150% ATK DMG"
+            )
+            .addEnchant(Enchantment.DURABILITY, 1)
+            .addData("Wandering_Clouds")
+            .addFlag(ItemFlag.HIDE_ENCHANTS)
+            .addFlag(ItemFlag.HIDE_ATTRIBUTES)
+            .addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_DAMAGE,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "ATK_DMG",
+                            0.06,
                             AttributeModifier.Operation.MULTIPLY_SCALAR_1,
                             EquipmentSlot.FEET
                     )

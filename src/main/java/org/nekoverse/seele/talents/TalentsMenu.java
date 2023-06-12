@@ -86,7 +86,6 @@ public class TalentsMenu implements Menu {
         player.sendMessage(
                 "",
                 ChatColor.GOLD + " " + ChatColor.BOLD + "Talents",
-                "",
                 ChatColor.YELLOW + "  Slot 1: " + (playerData.hasTalent(0) ? playerData.getTalent(0).getItemMeta().getDisplayName() : ChatColor.GRAY + "Empty"),
                 ChatColor.YELLOW + "  Slot 2: " + (playerData.hasTalent(1) ? playerData.getTalent(1).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),
                 ChatColor.YELLOW + "  Slot 3: " + (playerData.hasTalent(2) ? playerData.getTalent(2).getItemMeta().getDisplayName()  : ChatColor.GRAY + "Empty"),

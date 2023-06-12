@@ -49,7 +49,6 @@ public class LookupCommand implements CommandExecutor {
         player.sendMessage(
                 "",
                 ChatColor.GOLD + " " + ChatColor.BOLD + target.getName(),
-                "",
                 ChatColor.YELLOW + "  UUID: " + target.getUniqueId(),
                 ChatColor.YELLOW + "  Talents: ",
                 ChatColor.YELLOW + "   Slot 1: " + (playerData.hasTalent(0) ? playerData.getTalent(0).getItemMeta().getDisplayName() : ChatColor.GRAY + "Empty"),

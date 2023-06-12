@@ -11,9 +11,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.nekoverse.seele.Seele;
 import org.nekoverse.seele.data.PlayerData;
+
+import java.util.Random;
 
 public class PlayerListener implements Listener {
 
@@ -62,7 +67,9 @@ public class PlayerListener implements Listener {
 
 
             if (talent != null && talent.hasItemMeta()) {
-                if (talent.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Seele.getInstance(), "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
+                PersistentDataContainer pdc = talent.getItemMeta().getPersistentDataContainer();
+
+                if (pdc.has(new NamespacedKey(this.plugin, "Flowers_And_Butterflies"), PersistentDataType.STRING)) {
                     double currSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue();
                     double defaultSpd = damager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
                     double dmgMultiplier = 1 + (((currSpd - defaultSpd) * 100) * 0.04);
@@ -73,6 +80,32 @@ public class PlayerListener implements Listener {
                         dmgMultiplier = 1.16;
                     }
                     event.setDamage(event.getDamage() * dmgMultiplier);
+                }
+
+                if (pdc.has(new NamespacedKey(this.plugin, "Mirage_Of_Reality"), PersistentDataType.STRING)) {
+                    if (new Random().nextInt(100) < 15) {
+                        PotionEffectType[] debuffs = {
+                                PotionEffectType.BLINDNESS,
+                                PotionEffectType.CONFUSION,
+                                PotionEffectType.DARKNESS,
+                                PotionEffectType.HUNGER,
+                                PotionEffectType.LEVITATION,
+                                PotionEffectType.POISON,
+                                PotionEffectType.SLOW,
+                                PotionEffectType.SLOW_DIGGING,
+                                PotionEffectType.UNLUCK,
+                                PotionEffectType.WEAKNESS,
+                                PotionEffectType.WITHER
+                        };
+
+                        living.addPotionEffect(
+                                new PotionEffect(
+                                        debuffs[new Random().nextInt(debuffs.length)],
+                                        20 * 3,
+                                        0
+                                )
+                        );
+                    }
                 }
             }
         }

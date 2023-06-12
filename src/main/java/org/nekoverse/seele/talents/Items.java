@@ -77,6 +77,34 @@ public enum Items {
             )
             .toItemStack()
     ),
+    INCESSANT_RAIN(new ItemBuilder(Material.PAPER)
+            .setName("&dIncessant Rain")
+            .setLore(
+                    "&7Mirage of Reality",
+                    "",
+                    "&eHonkai: Star Rail &6&lLight Cone &eSeries",
+                    "",
+                    "&7When in Talents:",
+                    " &d+15% chance to apply a random debuff",
+                    " &don target",
+                    " &d+4% ATK DMG"
+            )
+            .addEnchant(Enchantment.DURABILITY, 1)
+            .addData("Mirage_Of_Reality")
+            .addFlag(ItemFlag.HIDE_ENCHANTS)
+            .addFlag(ItemFlag.HIDE_ATTRIBUTES)
+            .addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_DAMAGE,
+                    new AttributeModifier(
+                            UUID.randomUUID(),
+                            "ATK_DMG",
+                            0.04,
+                            AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                            EquipmentSlot.FEET
+                    )
+            )
+            .toItemStack()
+    ),
     LOST_PRAYER(new ItemBuilder(Material.ENCHANTED_BOOK)
             .setName("&bLost Prayer to the Sacred Winds")
             .setLore(

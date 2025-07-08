@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerListener implements Listener {
 
-    private Pathstriders plugin;
+    private final Pathstriders plugin;
 
     public PlayerListener(Pathstriders plugin) {
         this.plugin = plugin;

@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TalentRunnable extends BukkitRunnable {
 
-    private Pathstriders plugin;
+    private final Pathstriders plugin;
 
     public TalentRunnable(Pathstriders plugin) {
         this.plugin = plugin;

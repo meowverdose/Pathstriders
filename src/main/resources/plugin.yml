@@ -1,11 +1,7 @@
-name: Seele
+name: Pathstriders
 version: ${project.version}
-api-version: 1.19
-main: org.nekoverse.seele.Seele
-author: nekoverse
+api-version: 1.21.7
+main: com.meoverdose.pathsriders.Pathstriders
+author: meowphetamines
 description: "§dThe Butterfly That Triggered the Storm"
 commands:
-  lookup:
-  items:
-  talents:
-  whatis:

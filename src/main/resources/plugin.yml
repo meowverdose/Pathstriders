@@ -1,7 +1,10 @@
 name: Pathstriders
 version: ${project.version}
 api-version: 1.21.7
-main: com.meoverdose.pathsriders.Pathstriders
+main: com.meowverdose.pathstriders.Pathstriders
 author: meowphetamines
 description: "§dThe Butterfly That Triggered the Storm"
 commands:
+  items:
+    description: "Give talent item"
+    usage: "/items <talent-id> <player>"

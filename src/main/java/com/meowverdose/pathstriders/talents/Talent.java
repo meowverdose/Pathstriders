@@ -1,5 +1,7 @@
 package com.meowverdose.pathstriders.talents;
 
+import com.meowverdose.pathstriders.Pathstriders;
+import com.meowverdose.pathstriders.util.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,17 +21,25 @@ import java.util.function.Consumer;
 
 public enum Talent {
 
+    /** TODO
+     * Murasame
+     * Kiriichimonji
+     */
+
+    /**
+     * Honkai: Star Rail: Light Cone series
+     */
     IN_THE_NIGHT(
         "in_the_night",
             "§9In the Night",
             List.of(
-                    "§7Flowers and Butterflies",
+                    "§eFlowers and Butterflies",
                     " ",
                     "§e☆☆☆☆☆",
                     " ",
                     "§eHonkai: Star Rail §6§lLight Cone §eseries",
                     " ",
-                    "§7When in Off-hand:",
+                    "§7When in Talents:",
                     "§2+18% CRIT RATE",
                     "§2+6% ATK per 0.01 SPD (max 4 stacks)",
                     " ",
@@ -67,7 +77,41 @@ public enum Talent {
                     target.damage(bonusDmg, player);
                 }
             },
-            (player) -> {} // No active ability
+            (player) -> {}
+    ),
+
+    INCESSANT_RAIN(
+            "incessant_rain",
+            "§dIncessant Rain",
+            List.of(
+                    "§eMirage of Reality",
+                    " ",
+                    "§e☆☆☆☆☆",
+                    " ",
+                    "§eHonkai: Star Rail §6§lLight Cone §eseries",
+                    " ",
+                    "§7When in Talents:",
+                    "§2+12% CRIT RATE",
+                    "§2+10% to apply Aether Code (random debuff) to targets",
+                    "§2 - Targets afflicted with Aether Code receive +6% DMG",
+                    " ",
+                    "§7\"Gaming and rain totally go together.\""
+            ),
+            Material.PAPER,
+            (player) -> {
+                player.sendMessage(ChatColor.GREEN + "Talents: Incessant Rain equipped!");
+            },
+            (player) -> {
+                player.sendMessage(ChatColor.RED + "Talents: Incessant Rain unequipped.");
+            },
+            (player, target) -> {
+                // CRIT RATE +12%
+                Random random = new Random();
+                if (random.nextDouble() < 0.12) {
+                    double critBonus = 2.0;
+                    target.damage(critBonus, player);
+                    player.sendMessage(ChatColor.BLUE + "Incessant Rain: CRIT hit! +" + critBonus + " damage.");
+                }
 
     );
 
@@ -80,7 +124,7 @@ public enum Talent {
     private final BiConsumer<Player, LivingEntity> onAttack;
     private final Consumer<Player> onRightClick;
 
-    TalentType(String id, String name, List<String> lore, Material material,
+    Talent(String id, String name, List<String> lore, Material material,
            Consumer<Player> onEquip,
            Consumer<Player> onUnequip,
            BiConsumer<Player, LivingEntity> onAttack,

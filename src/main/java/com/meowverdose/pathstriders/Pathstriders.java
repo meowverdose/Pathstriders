@@ -10,18 +10,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Pathstriders extends JavaPlugin {
 
+    private static Pathstriders instance;
     public static NamespacedKey TALENT_ID_KEY = null;
     private TalentManager talentManager;
     private PlayerDataManager playerDataManager;
 
     @Override
     public void onEnable() {
+        instance = this;
         init();
     }
 
     @Override
     public void onDisable() {
-
+        instance = null;
     }
 
     private void init() {
@@ -48,6 +50,10 @@ public class Pathstriders extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("items").setExecutor(new ItemsCommand(this));
+    }
+
+    public static Pathstriders getInstance() {
+        return instance;
     }
 
     public TalentManager getTalentManager() {

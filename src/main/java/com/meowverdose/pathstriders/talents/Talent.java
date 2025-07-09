@@ -1,5 +1,6 @@
 package com.meowverdose.pathstriders.talents;
 
+import com.meowverdose.pathstriders.Pathstriders;
 import com.meowverdose.pathstriders.util.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -50,6 +52,7 @@ public enum Talent {
                     "§7§o\"But it feels... very lively...\""
             ),
             Material.PAPER,
+            null,
             (player) -> {
                 player.sendMessage(ChatColor.GREEN + "Talents: In the Night equipped!");
             },
@@ -99,6 +102,7 @@ public enum Talent {
                     "§7\"Gaming and rain totally go together.\""
             ),
             Material.PAPER,
+            null,
             (player) -> {
                 player.sendMessage(ChatColor.GREEN + "Talents: Incessant Rain equipped!");
             },
@@ -187,12 +191,14 @@ public enum Talent {
     private final String name;
     private final List<String> lore;
     private final Material material;
+    private final Map<Enchantment, Integer> enchants;
     private final Consumer<Player> onEquip;
     private final Consumer<Player> onUnequip;
     private final BiConsumer<Player, LivingEntity> onAttack;
     private final Consumer<Player> onRightClick;
 
     Talent(String id, String name, List<String> lore, Material material,
+           Map<Enchantment, Integer> enchants,
            Consumer<Player> onEquip,
            Consumer<Player> onUnequip,
            BiConsumer<Player, LivingEntity> onAttack,
@@ -201,6 +207,7 @@ public enum Talent {
         this.name = name;
         this.lore = lore;
         this.material = material;
+        this.enchants = enchants;
         this.onEquip = onEquip;
         this.onUnequip = onUnequip;
         this.onAttack = onAttack;
@@ -218,6 +225,11 @@ public enum Talent {
         meta.setLore(lore);
         meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, id);
         meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+        if (enchants != null && !enchants.isEmpty()) {
+            enchants.forEach((enchant, level) -> {
+                meta.addEnchant(enchant, level, true);
+            });
+        }
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         return item;

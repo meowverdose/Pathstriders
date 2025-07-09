@@ -147,18 +147,20 @@ public enum Talent {
             "the_fool",
             "§9The Fool",
             List.of(
-                    "§bThe Fool's World",
+                    "§7The Fool's World",
                     " ",
                     "§e☆☆☆☆☆",
                     " ",
-                    "§bRakuaka: &9&lOriginal Magic &bseries",
+                    "§bRakuaka: §9§lOriginal Magic §bseries",
                     " ",
                     "§7When activated:",
-                    "§2Within 5 blocks, all talents become disabled for 30 seconds",
+                    "§2The Fool's World: Within 5 blocks, all talents become disabled for 30 seconds",
+                    "§2 - Cooldown: 60s",
                     " ",
                     "§7\"Magic’s overrated. Watch closely—I’ll show you what a real fight looks like.\""
             ),
             Material.PAPER,
+            null,
             (player) -> {
                 player.sendMessage(ChatColor.GREEN + "Talents: The Fool equipped!");
             },
@@ -167,14 +169,14 @@ public enum Talent {
             },
             (player, target) -> {},
             (player) -> {
+                Pathstriders.getInstance().getPlayerDataManager().setCooldown(player, "the_fool", 60_000);
+
                 List<Player> nearbyPlayers = PlayerUtil.getPlayersWithinRadius(player, 5);
                 for (Player players : nearbyPlayers) {
-                    // todo talent/playerdata manager logic here, cd's (30s)
 
-                    // Is caster
-                    if (players.equals(player)) {
+                    if (players.equals(player)) { // Caster
                         players.sendMessage(ChatColor.RED + "Talents: You activated The Fool's World! All players (including you) within 5 blocks are disabled and unable to use their talents.");
-                    } else {
+                    } else { // Other players
                         players.sendMessage(ChatColor.RED + "Talents: " + player.getName() + " has activated The Fool's World! Your talents have been disabled...");
                     }
                 }

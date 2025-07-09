@@ -17,7 +17,7 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public enum TalentType {
+public enum Talent {
 
     IN_THE_NIGHT(
         "in_the_night",

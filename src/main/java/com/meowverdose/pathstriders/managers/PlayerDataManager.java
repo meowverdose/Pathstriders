@@ -1,7 +1,7 @@
 package com.meowverdose.pathstriders.managers;
 
 import com.meowverdose.pathstriders.Pathstriders;
-import com.meowverdose.pathstriders.talents.TalentType;
+import com.meowverdose.pathstriders.talents.Talent;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -11,17 +11,17 @@ import java.util.UUID;
 public class PlayerDataManager {
 
     private final Pathstriders plugin;
-    private final Map<UUID, TalentType> activeTalent = new HashMap<>();
+    private final Map<UUID, Talent> activeTalent = new HashMap<>();
 
     public PlayerDataManager(Pathstriders plugin) {
         this.plugin = plugin;
     }
 
-    public TalentType getActiveTalent(Player player) {
+    public Talent getActiveTalent(Player player) {
         return activeTalent.get(player.getUniqueId());
     }
 
-    public void setActiveTalent(Player player, TalentType talent) {
+    public void setActiveTalent(Player player, Talent talent) {
         activeTalent.put(player.getUniqueId(), talent);
     }
 

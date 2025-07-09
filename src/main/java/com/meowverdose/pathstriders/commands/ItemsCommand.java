@@ -1,7 +1,7 @@
 package com.meowverdose.pathstriders.commands;
 
 import com.meowverdose.pathstriders.Pathstriders;
-import com.meowverdose.pathstriders.talents.TalentType;
+import com.meowverdose.pathstriders.talents.Talent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +29,7 @@ public class ItemsCommand implements CommandExecutor, TabCompleter {
         }
 
         String talentId = args[0].toLowerCase();
-        TalentType talent = plugin.getTalentManager().getTalentById(talentId);
+        Talent talent = plugin.getTalentManager().getTalentById(talentId);
 
         if (talent == null) {
             sender.sendMessage("§cTalent not found: " + talentId);
@@ -61,7 +61,7 @@ public class ItemsCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            for (TalentType talent : plugin.getTalentManager().getAllTalents()) {
+            for (Talent talent : plugin.getTalentManager().getAllTalents()) {
                 if (talent.getId().startsWith(args[0].toLowerCase())) {
                     completions.add(talent.getId());
                 }

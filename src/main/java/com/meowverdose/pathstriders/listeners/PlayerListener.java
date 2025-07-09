@@ -1,7 +1,7 @@
 package com.meowverdose.pathstriders.listeners;
 
 import com.meowverdose.pathstriders.Pathstriders;
-import com.meowverdose.pathstriders.talents.TalentType;
+import com.meowverdose.pathstriders.talents.Talent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +22,7 @@ public class PlayerListener implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player)) return;
 
-        TalentType talent = plugin.getPlayerDataManager().getActiveTalent(player);
+        Talent talent = plugin.getPlayerDataManager().getActiveTalent(player);
 
         if (talent == null) return;
         if (!(event.getEntity() instanceof LivingEntity target)) return;
@@ -38,7 +38,7 @@ public class PlayerListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Player player = event.getPlayer();
-        TalentType talent = plugin.getPlayerDataManager().getActiveTalent(player);
+        Talent talent = plugin.getPlayerDataManager().getActiveTalent(player);
 
         if (talent == null) return;
 

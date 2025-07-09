@@ -1,7 +1,7 @@
 package com.meowverdose.pathstriders.runnables;
 
 import com.meowverdose.pathstriders.Pathstriders;
-import com.meowverdose.pathstriders.talents.TalentType;
+import com.meowverdose.pathstriders.talents.Talent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,16 +20,16 @@ public class TalentRunnable extends BukkitRunnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             ItemStack offHand = player.getInventory().getItemInOffHand();
-            TalentType matchedTalent = null;
+            Talent matchedTalent = null;
 
-            for (TalentType talent : plugin.getTalentManager().getAllTalents()) {
+            for (Talent talent : plugin.getTalentManager().getAllTalents()) {
                 if (talent.isTalent(offHand, Pathstriders.TALENT_ID_KEY)) {
                     matchedTalent = talent;
                     break;
                 }
             }
 
-            TalentType currentTalent = plugin.getPlayerDataManager().getActiveTalent(player);
+            Talent currentTalent = plugin.getPlayerDataManager().getActiveTalent(player);
 
             if (matchedTalent != null) {
                 if (currentTalent != matchedTalent) {

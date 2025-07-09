@@ -1,6 +1,5 @@
 package com.meowverdose.pathstriders.talents;
 
-import com.meowverdose.pathstriders.Pathstriders;
 import com.meowverdose.pathstriders.util.PlayerUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,6 +12,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.Random;
@@ -113,6 +114,71 @@ public enum Talent {
                     player.sendMessage(ChatColor.BLUE + "Incessant Rain: CRIT hit! +" + critBonus + " damage.");
                 }
 
+                if (random.nextDouble() < 0.10) {
+                    PotionEffectType[] debuffs = {
+                            PotionEffectType.MINING_FATIGUE,
+                            PotionEffectType.BLINDNESS,
+                            PotionEffectType.DARKNESS,
+                            PotionEffectType.HUNGER,
+                            PotionEffectType.LEVITATION,
+                            PotionEffectType.NAUSEA,
+                            PotionEffectType.POISON,
+                            PotionEffectType.SLOWNESS,
+                            PotionEffectType.WEAKNESS,
+                            PotionEffectType.WITHER
+                    };
+
+                    PotionEffect debuff = new PotionEffect(debuffs[random.nextInt(debuffs.length - 1)], 60, 0);
+                    target.addPotionEffect(debuff);
+                    player.sendMessage(ChatColor.BLUE + "Aether Code: Applied " + debuff.getType().getName() + " to " + target.getName() + ".");
+                }
+            },
+            (player) -> {}
+    ),
+
+    /**
+     * Akame Ga Kill!: Shingu/Tengu series
+     */
+
+    /**
+     * Rakuaka: Original Magic series
+     */
+    THE_FOOL(
+            "the_fool",
+            "§9The Fool",
+            List.of(
+                    "§bThe Fool's World",
+                    " ",
+                    "§e☆☆☆☆☆",
+                    " ",
+                    "§bRakuaka: &9&lOriginal Magic &bseries",
+                    " ",
+                    "§7When activated:",
+                    "§2Within 5 blocks, all talents become disabled for 30 seconds",
+                    " ",
+                    "§7\"Magic’s overrated. Watch closely—I’ll show you what a real fight looks like.\""
+            ),
+            Material.PAPER,
+            (player) -> {
+                player.sendMessage(ChatColor.GREEN + "Talents: The Fool equipped!");
+            },
+            (player) -> {
+                player.sendMessage(ChatColor.RED + "Talents: The Fool unequipped.");
+            },
+            (player, target) -> {},
+            (player) -> {
+                List<Player> nearbyPlayers = PlayerUtil.getPlayersWithinRadius(player, 5);
+                for (Player players : nearbyPlayers) {
+                    // todo talent/playerdata manager logic here, cd's (30s)
+
+                    // Is caster
+                    if (players.equals(player)) {
+                        players.sendMessage(ChatColor.RED + "Talents: You activated The Fool's World! All players (including you) within 5 blocks are disabled and unable to use their talents.");
+                    } else {
+                        players.sendMessage(ChatColor.RED + "Talents: " + player.getName() + " has activated The Fool's World! Your talents have been disabled...");
+                    }
+                }
+            }
     );
 
     private final String id;

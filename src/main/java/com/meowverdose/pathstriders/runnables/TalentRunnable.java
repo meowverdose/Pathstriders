@@ -58,12 +58,15 @@ public class TalentRunnable extends BukkitRunnable {
             ItemStack offHand = player.getInventory().getItemInOffHand();
             Talent matchedTalent = null;
 
+            // Looks up talent
             for (Talent talent : plugin.getTalentManager().getAllTalents()) {
                 if (talent.isTalent(offHand, Pathstriders.TALENT_ID_KEY)) {
                     matchedTalent = talent;
                     break;
                 }
             }
+
+            // TODO Look up custom debuff effects to proc (i.e. Murasame)
 
             Talent currentTalent = plugin.getPlayerDataManager().getActiveTalent(player);
 

@@ -25,6 +25,8 @@ import java.util.function.Consumer;
 public enum Talent {
 
     /** TODO
+     * Custom colors impl
+     * Support main hand & off hand
      * Murasame
      * Kiriichimonji
      */
@@ -36,7 +38,7 @@ public enum Talent {
         "in_the_night",
             "§9In the Night",
             List.of(
-                    "§eFlowers and Butterflies",
+                    "§7Flowers and Butterflies",
                     " ",
                     "§e☆☆☆☆☆",
                     " ",
@@ -88,7 +90,7 @@ public enum Talent {
             "incessant_rain",
             "§dIncessant Rain",
             List.of(
-                    "§eMirage of Reality",
+                    "§7Mirage of Reality",
                     " ",
                     "§e☆☆☆☆☆",
                     " ",
@@ -96,7 +98,7 @@ public enum Talent {
                     " ",
                     "§7When in Talents:",
                     "§2+12% CRIT RATE",
-                    "§2+10% to apply Aether Code (random debuff) to targets",
+                    "§2+15% to apply Aether Code (random debuff) to targets",
                     "§2 - Targets afflicted with Aether Code receive +6% DMG",
                     " ",
                     "§7\"Gaming and rain totally go together.\""
@@ -118,13 +120,12 @@ public enum Talent {
                     player.sendMessage(ChatColor.BLUE + "Incessant Rain: CRIT hit! +" + critBonus + " damage.");
                 }
 
-                if (random.nextDouble() < 0.10) {
+                if (random.nextDouble() < 0.15) {
                     PotionEffectType[] debuffs = {
                             PotionEffectType.MINING_FATIGUE,
                             PotionEffectType.BLINDNESS,
                             PotionEffectType.DARKNESS,
                             PotionEffectType.HUNGER,
-                            PotionEffectType.LEVITATION,
                             PotionEffectType.NAUSEA,
                             PotionEffectType.POISON,
                             PotionEffectType.SLOWNESS,
@@ -132,7 +133,7 @@ public enum Talent {
                             PotionEffectType.WITHER
                     };
 
-                    PotionEffect debuff = new PotionEffect(debuffs[random.nextInt(debuffs.length - 1)], 60, 0);
+                    PotionEffect debuff = new PotionEffect(debuffs[random.nextInt(debuffs.length)], 20 * 5, random.nextInt(0, 1));
                     target.addPotionEffect(debuff);
                     player.sendMessage(ChatColor.BLUE + "Aether Code: Applied " + debuff.getType().getName() + " to " + target.getName() + ".");
                 }

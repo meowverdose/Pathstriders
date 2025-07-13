@@ -142,45 +142,6 @@ public enum Talent {
     ),
 
     /**
-     * Akame Ga Kill!: Shingu/Tengu series
-     */
-    MURASAME(
-           "murasame",
-            "§cMurasame",
-            List.of(
-                    "§7One-Cut Killing",
-                    " ",
-                    "§e☆☆☆☆☆",
-                    " ",
-                    "§cAkame Ga Kill!: §4§lTengu §cseries",
-                    " ",
-                    "§7When in main hand:",
-                    "§2Attacks apply One-Cut Killing to targets for 5s",
-                    " ",
-                    "§7When activated:",
-                    "§2Little War Horn: XXX", // TODO
-                    " ",
-                    "§7\"A cursed blade that kills with a single cut. Once its poison enters the bloodstream, death is certain.\""
-            ),
-            Material.IRON_SWORD,
-            Map.of(
-                    Enchantment.SHARPNESS, 6
-            ),
-            (player) -> {
-                player.sendMessage(ChatColor.GREEN + "Talents: Murasame equipped!");
-            },
-            (player) -> {
-                player.sendMessage(ChatColor.RED + "Talents: Murasame unequipped.");
-            },
-            (player, target) -> {
-               // one cut killing logic todo
-            },
-            (player) -> {
-               // little war horn logic todo
-            }
-    ),
-
-    /**
      * Rakuaka: Original Magic series
      */
     THE_FOOL(

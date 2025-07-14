@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemsCommand implements CommandExecutor, TabCompleter {
 
@@ -22,37 +23,32 @@ public class ItemsCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        if (args.length < 1) {
-            sender.sendMessage("§cUsage: /items <talent-id> <player>");
+        if (args.length != 2) {
+            sender.sendMessage("§cUsage: /items <player> <talent>");
             return true;
         }
 
-        String talentId = args[0].toLowerCase();
-        Talent talent = plugin.getTalentManager().getTalentById(talentId);
+        Player target = Bukkit.getPlayer(args[0]);
+        if (target == null || !target.isOnline()) {
+            sender.sendMessage("§cTalents Player not found or not online!");
+            return true;
+        }
+
+        Talent talent = null;
+        for (Talent talents : Talent.values()) {
+            if (talents.name().equalsIgnoreCase(args[1])) {
+                talent = talents;
+                break;
+            }
+        }
 
         if (talent == null) {
-            sender.sendMessage("§cTalent not found: " + talentId);
+            sender.sendMessage("§cTalents: Talent not found!");
             return true;
         }
 
-        Player target;
-        if (args.length >= 2) {
-            target = Bukkit.getPlayerExact(args[1]);
-            if (target == null) {
-                sender.sendMessage("§cPlayer not found: " + args[1]);
-                return true;
-            }
-        } else {
-            if (!(sender instanceof Player player)) {
-                sender.sendMessage("§cConsole must specify a player.");
-                return true;
-            }
-            target = player;
-        }
-
-        target.getInventory().addItem(talent.createItem(Pathstriders.TALENT_ID_KEY));
-        sender.sendMessage("§aGave " + target.getName() + " the talent: " + talentId);
+        target.getInventory().addItem(talent.getItem());
+        target.sendMessage("§aTalents: You received the " + talent.name() + " talent!");
         return true;
     }
 
@@ -61,21 +57,19 @@ public class ItemsCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            for (Talent talent : plugin.getTalentManager().getAllTalents()) {
-                if (talent.getId().startsWith(args[0].toLowerCase())) {
-                    completions.add(talent.getId());
+            completions = Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .filter(name -> name.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .collect(Collectors.toList());
+        } else if (args.length == 2) {
+            completions = new ArrayList<>();
+            for (Talent talent : Talent.values()) {
+                String name = talent.name();
+                if (name.toLowerCase().startsWith(args[1].toLowerCase())) {
+                    completions.add(name);
                 }
             }
         }
-
-        if (args.length == 2) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (player.getName().toLowerCase().startsWith(args[1].toLowerCase())) {
-                    completions.add(player.getName());
-                }
-            }
-        }
-
         return completions;
     }
 }

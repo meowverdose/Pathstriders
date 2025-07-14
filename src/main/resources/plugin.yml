@@ -7,4 +7,4 @@ description: "§dThe Butterfly That Triggered the Storm"
 commands:
   items:
     description: "Give talent item to player"
-    usage: "/items <talent-id> <player>"
+    usage: "/items <player> <talent>"

@@ -2,7 +2,8 @@ package com.meowverdose.pathstriders.listeners;
 
 import com.meowverdose.pathstriders.Pathstriders;
 import com.meowverdose.pathstriders.talents.Talent;
-import org.bukkit.ChatColor;
+import com.meowverdose.pathstriders.talents.TalentEffect;
+import com.meowverdose.pathstriders.util.TimeUtil;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,45 +23,70 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player player)) return; // Damager is player check
+        if (!(event.getDamager() instanceof Player attacker) || !(event.getEntity() instanceof LivingEntity victim)) return;
 
-        Talent talent = plugin.getPlayerDataManager().getActiveTalent(player);
+        Talent mainHandTalent = Talent.fromItem(attacker.getInventory().getItemInMainHand());
+        if (mainHandTalent != null && mainHandTalent.getOnAttackEffect() != null) {
+            if (mainHandTalent.getSlot() == EquipmentSlot.HAND) {
+                if (!isSilenced(attacker)) {
+                    mainHandTalent.getOnAttackEffect().accept(attacker, victim, event);
+                }
+            }
+        }
 
-        if (talent == null) return; // Null check
-        if (!(event.getEntity() instanceof LivingEntity target)) return; // Target is player check
-        if (plugin.getPlayerDataManager().isTalentDisabled(player)) return; // Talent disabled check
-
-        talent.onAttack(player, target);
-        plugin.getLogger().info(player.getName() + "'s " + talent.getId() + " talent proc'd on " + target.getName());
+        Talent offHandTalent = Talent.fromItem(attacker.getInventory().getItemInOffHand());
+        if (offHandTalent != null && offHandTalent.getOnAttackEffect() != null) {
+            if (offHandTalent.getSlot() == EquipmentSlot.OFF_HAND) {
+                if (!isSilenced(attacker)) {
+                    offHandTalent.getOnAttackEffect().accept(attacker, victim, event);
+                }
+            }
+        }
     }
 
     @EventHandler
-    public void onRightClick(PlayerInteractEvent event) {
-        Action action = event.getAction();
-
-        // Not a right-click
-        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
-
-        // Ignore main-hand actions
-        if (event.getHand() != EquipmentSlot.OFF_HAND) {
-            return;
-        }
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
+        if (!event.getPlayer().isSneaking()) return;
 
         Player player = event.getPlayer();
-        Talent talent = plugin.getPlayerDataManager().getActiveTalent(player);
 
-        if (talent == null) return; // Null check
-        if (plugin.getPlayerDataManager().isOnCooldown(player, talent.getId())) { // Talent cooldown check
-            System.out.println("DEBUG : " + Pathstriders.getInstance().getPlayerDataManager().isOnCooldown(player, talent.getId()));
-            long remaining = Pathstriders.getInstance().getPlayerDataManager().getCooldownRemaining(player, talent.getId()) / 1000;
-
-            player.sendMessage(ChatColor.RED + "Talents: " + talent.name() + " is on cooldown! " + remaining + "s remaining.");
-            return;
+        // Main hand
+        Talent mainHandTalent = Talent.fromItem(player.getInventory().getItemInMainHand());
+        if (mainHandTalent != null && !plugin.getPlayerDataManager().isOnCooldown(player, mainHandTalent)) {
+            if (mainHandTalent.getSlot() == EquipmentSlot.HAND) {
+                if (!isSilenced(player) && !hasCooldown(player, mainHandTalent)) {
+                    mainHandTalent.getActiveEffect().accept(player, plugin.getPlayerDataManager());
+                    plugin.getPlayerDataManager().setCooldown(player, mainHandTalent);
+                }
+            }
         }
-        if (plugin.getPlayerDataManager().isTalentDisabled(player)) return; // Talent disabled check
 
-        talent.onRightClick(player);
+        // Off hand
+        Talent offHandTalent = Talent.fromItem(player.getInventory().getItemInOffHand());
+        if (offHandTalent != null && !plugin.getPlayerDataManager().isOnCooldown(player, offHandTalent)) {
+            if (offHandTalent.getSlot() == EquipmentSlot.OFF_HAND) {
+                if (!isSilenced(player) && !hasCooldown(player, offHandTalent)) {
+                    offHandTalent.getActiveEffect().accept(player, plugin.getPlayerDataManager());
+                    plugin.getPlayerDataManager().setCooldown(player, offHandTalent);
+                }
+            }
+        }
+    }
+
+    private boolean hasCooldown(Player player, Talent talent) {
+        if (plugin.getPlayerDataManager().isOnCooldown(player, talent)) {
+            player.sendMessage("§cTalents: " + talent.getItem().getItemMeta().getDisplayName() + " is on cooldown for " + TimeUtil.formatMillis(plugin.getPlayerDataManager().getCooldownRemaining(player, talent)));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isSilenced(Player player) {
+        if (plugin.getPlayerDataManager().hasEffect(player, TalentEffect.THE_FOOLS_WORLD)) {
+            player.sendMessage("§cTalents: You are silenced and cannot use talents for " + TimeUtil.formatMillis(plugin.getPlayerDataManager().getEffectRemaining(player, TalentEffect.THE_FOOLS_WORLD))); // show in hud bar
+            return true;
+        }
+        return false;
     }
 }

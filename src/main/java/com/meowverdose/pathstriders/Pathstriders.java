@@ -3,7 +3,6 @@ package com.meowverdose.pathstriders;
 import com.meowverdose.pathstriders.commands.ItemsCommand;
 import com.meowverdose.pathstriders.listeners.PlayerListener;
 import com.meowverdose.pathstriders.managers.PlayerDataManager;
-import com.meowverdose.pathstriders.managers.TalentManager;
 import com.meowverdose.pathstriders.runnables.TalentRunnable;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,7 +11,6 @@ public class Pathstriders extends JavaPlugin {
 
     private static Pathstriders instance;
     public static NamespacedKey TALENT_ID_KEY = null;
-    private TalentManager talentManager;
     private PlayerDataManager playerDataManager;
 
     @Override
@@ -36,7 +34,6 @@ public class Pathstriders extends JavaPlugin {
     }
 
     private void registerManagers() {
-        talentManager = new TalentManager(this);
         playerDataManager = new PlayerDataManager(this);
     }
 
@@ -54,10 +51,6 @@ public class Pathstriders extends JavaPlugin {
 
     public static Pathstriders getInstance() {
         return instance;
-    }
-
-    public TalentManager getTalentManager() {
-        return talentManager;
     }
 
     public PlayerDataManager getPlayerDataManager() {
